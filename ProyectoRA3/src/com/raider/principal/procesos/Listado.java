@@ -43,6 +43,20 @@ public class Listado extends Thread {
                         pc.listarSoldado();
                     }
                 }
+
+                if (v.txtBusquedasoldado.getText().isEmpty()) {
+
+                    if(Values.tpConstant == 3) {
+                        pc.listarArma();
+                    }
+                }
+
+                if (v.txtBusquedasoldado.getText().isEmpty()) {
+
+                    if(Values.tpConstant == 4) {
+                        pc.listarVehiculo();
+                    }
+                }
             }
 
 

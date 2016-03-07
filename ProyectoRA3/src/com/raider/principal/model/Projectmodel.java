@@ -1,10 +1,8 @@
 package com.raider.principal.model;
 
-import com.mysql.jdbc.exceptions.MySQLSyntaxErrorException;
+import com.raider.principal.base.*;
 import com.raider.principal.util.Values;
-import com.raider.principal.base.Cuartel;
-import com.raider.principal.base.Soldado;
-import com.raider.principal.base.Unidad;
+import com.raider.principal.util.HibernateUtil;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -19,9 +17,11 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
+import java.util.Vector;
 
-import org.postgresql.util.PSQLException;
+import org.hibernate.HibernateException;
+import org.hibernate.Query;
+import org.hibernate.Session;
 import org.w3c.dom.*;
 import org.xml.sax.SAXException;
 import raider.Util.Utilities;
@@ -31,126 +31,67 @@ import raider.Util.Utilities;
  */
 public class Projectmodel {
 
-    private Connection conexion;
+    private Session sesion;
 
-    public void conexion() throws SQLException, ClassNotFoundException {
+    public void conexion() {
 
-        Properties configuracion = new Properties();
+        HibernateUtil.buildSessionFactory();
+        HibernateUtil.openSession();
+        sesion = HibernateUtil.getCurrentSession();
+    }
 
-        try {
-            configuracion.load(new FileInputStream("configuracion.props"));
+    public Session getSesion() {
+        return HibernateUtil.getCurrentSession();
+    }
 
-            String driver = configuracion.getProperty("driver");
-            Values.driver = driver;
-            String protocolo = configuracion.getProperty("protocolo");
-            String servidor = configuracion.getProperty("servidor");
-            String puerto = configuracion.getProperty("puerto");
-            String baseDatos = configuracion.getProperty("basedatos");
-            String usuario = configuracion.getProperty("usuario");
-            String contrasena = configuracion.getProperty("contrasena");
+    public Query query(String sql) {
+        return HibernateUtil.getCurrentSession().createQuery(sql);
+    }
 
-            Class.forName(driver).newInstance();
-            try {
-                conexion = DriverManager.getConnection(protocolo + servidor + ":" +
-                        puerto + "/" + baseDatos, usuario, contrasena);
-                Utilities.mensajeInformacion("Conexion realizada con exito");
-            } catch (MySQLSyntaxErrorException msqlsee) {
-                Utilities.mensajeError("Porfavor introduzca la base de datos ejercito en Mysql");
-                msqlsee.printStackTrace();
-                Values.warningBaseDatos = true;
-            } catch (PSQLException psqlsee) {
-                Utilities.mensajeError("Porfavor introduzca la base de datos ejercito en PostgreSQL");
-                psqlsee.printStackTrace();
-                Values.warningBaseDatos = true;
-            }
+    public void guardarClase(Object clase) {
 
+        sesion = HibernateUtil.getCurrentSession();
+        sesion.beginTransaction();
+        sesion.save(clase);
+        sesion.getTransaction().commit();
+        sesion.close();
+    }
 
+    public void modificarClase(Object clase) {
 
-        } catch (FileNotFoundException fnfe) {
-            Utilities.mensajeInformacion(" Preferencias de conexion no encontradas.\n " +
-                    "Base de datos cargada con preferencias por defecto.");
-                Properties con = new Properties();
+        sesion = HibernateUtil.getCurrentSession();
+        sesion.beginTransaction();
+        sesion.update(clase);
+        sesion.getTransaction().commit();
+        sesion.close();
+    }
 
-                con.setProperty("basedatos", "ejercito");
-                con.setProperty("puerto", "3306");
-                con.setProperty("servidor", "81.169.242.83");
-                con.setProperty("contrasena", "1234");
-                con.setProperty("usuario", "Raider");
-                con.setProperty("protocolo", "jdbc:mysql://");
-                con.setProperty("driver", "com.mysql.jdbc.Driver");
-
-                Values.driver = "com.mysql.jdbc.Driver";
-                try {
-                    con.store(new FileOutputStream("configuracion.props"), "|--- PREFERENCIAS ---|");
-                } catch (FileNotFoundException fn) {
-                    Utilities.mensajeError("Error al leer fichero de configuracion");
-                } catch (IOException io) {
-                    io.printStackTrace();
-                }
-
-            try {
-                Class.forName("com.mysql.jdbc.Driver").newInstance();
-            } catch (InstantiationException e) {
-                e.printStackTrace();
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            }
-            try {
-                conexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/ejercito", "root", "pamaloyo18");
-                Utilities.mensajeInformacion("Conexion realizada con exito");
-            } catch (MySQLSyntaxErrorException msqlsee) {
-                Utilities.mensajeError("Porfavor introduzca la base de datos ejercito en Mysql");
-                msqlsee.printStackTrace();
-                Values.warningBaseDatos = true;
-            } catch (PSQLException psqlsee) {
-                Utilities.mensajeError("Porfavor introduzca la base de datos ejercito en PostgreSQL");
-                psqlsee.printStackTrace();
-                Values.warningBaseDatos = true;
-            }
-
-        } catch (IOException ioe) {
-            Utilities.mensajeError("Error al leer fichero de configuracion");
-        } catch (ClassNotFoundException cnfe) {
-            Utilities.mensajeError("No se ha podido cargar el driver de la base de datos");
-        } catch (SQLException sqle) {
-            Utilities.mensajeError("No se ha podido conectar con la base de datos");
-            sqle.printStackTrace();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }
+    public void eliminarClase(Object clase) {
+        sesion = getSesion();
+        sesion.beginTransaction();
+        sesion.delete(clase);
+        sesion.getTransaction().commit();
+        sesion.close();
     }
 
     public String login(String usuario, String contrasena) {
 
         if (Values.warningBaseDatos == false) {
+
             String sql;
-
-            if (Values.driver.equalsIgnoreCase("org.postgresql.Driver")) {
-                sql = "SELECT usuario, rol FROM usuarios WHERE " +
-                        "usuario = ? AND password = ?";
-            } else {
-                sql = "SELECT usuario, rol FROM usuarios WHERE " +
-                        "usuario = ? AND password = SHA1(?)";
-            }
-
-
-            String rol = "";
-
             try {
-                PreparedStatement sentencia = conexion.prepareStatement(sql);
-                sentencia.setString(1, usuario);
-                sentencia.setString(2, contrasena);
-                ResultSet resultado = sentencia.executeQuery();
-
-                if (!resultado.next()) {
-                    Utilities.mensajeError("Usuario y contraseña incorrectos");
+                sql = "FROM Usuario u WHERE usuario = (:usuario) AND password = SHA1((:contrasena))";
+                sesion = getSesion();
+                Query query = sesion.createQuery(sql);
+                query.setParameter("usuario", usuario).setParameter("contrasena", contrasena);
+                Usuario user = (Usuario) query.uniqueResult();
+                sesion.close();
+                if (user == null) {
+                    Utilities.mensajeError("Error al hacer login, Usuario u contraseña incorrectos");
                     return null;
                 }
-                rol = resultado.getString("rol");
-                return rol;
-            } catch (SQLException sqle) {
+                    return user.getRol();
+            } catch (HibernateException he) {
                 Utilities.mensajeError("Error al hacer login");
                 return null;
             }
@@ -164,1218 +105,324 @@ public class Projectmodel {
         }
     }
 
-    public void guardarCuartelSentencia(String nombre_cuartel, String localidad,
-                                        Double latitud, Double longitud, Boolean actividad) {
+    public List<Object[]> listarGeneral(String clase) {
+        sesion = getSesion();
 
-        if (usoCuartel(nombre_cuartel) == 0) {
-            cambiarUsoCuartel(1, nombre_cuartel);
 
-            if (Values.driver.equalsIgnoreCase("org.postgresql.Driver")) {
+        if (clase.equalsIgnoreCase("arma")) {
 
-                String sql = "INSERT INTO cuartel (nombre_cuartel, latitud," +
-                        " longitud, actividad, localidad) VALUES (?,?,?,?,?)";
-                try {
-                    PreparedStatement sentence = conexion.prepareStatement(sql);
-                    sentence.setString(1, nombre_cuartel);
-                    sentence.setDouble(2, latitud);
-                    sentence.setDouble(3, longitud);
-                    if (actividad == true) {
-                        sentence.setInt(4, 1);
-                    } else {
-                        if (actividad == false) {
-                            sentence.setInt(4, 0);
-                        } else sentence.setInt(4, 1);
-                    }
-                    sentence.setString(5, localidad);
+            Query query = sesion.createQuery("From Arma");
+            List lista = query.list();
+            List<Object[]> listaObjetos = new ArrayList<>();
+            sesion.close();
+            for (int i = 0; i < lista.size(); i++) {
 
-                    sentence.executeUpdate();
-                } catch (SQLException e) {
-                    Utilities.mensajeError("Error al dar de alta cuartel");
-                    e.printStackTrace();
+                Object[] objects = new Object[]{((Arma) lista.get(i)).getId(),
+                        ((Arma) lista.get(i)).getNombre(), ((Arma) lista.get(i)).getCantidad_total(), ((Arma) lista.get(i)).getDuracion_años(), ((Arma) lista.get(i)).getCalibre(),
+                        ((Arma) lista.get(i)).getCantidad_municion()};
+                listaObjetos.add(objects);
+            }
+            return listaObjetos;
+        } else {
+
+            if(clase.equalsIgnoreCase("vehiculo")) {
+
+                Query query = sesion.createQuery("From Vehiculo");
+                List lista = query.list();
+                List<Object[]> listaObjetos = new ArrayList<>();
+                sesion.close();
+                for (int i = 0; i < lista.size(); i++) {
+                    Object[] objects = new Object[]{((Vehiculo) lista.get(i)).getId(),
+                            ((Vehiculo) lista.get(i)).getNombre(), ((Vehiculo) lista.get(i)).getCantidad_total(),
+                            ((Vehiculo) lista.get(i)).getDuracion_años(), ((Vehiculo) lista.get(i)).getAños_uso(),
+                            ((Vehiculo) lista.get(i)).getKilometros()};
+                    listaObjetos.add(objects);
+
+
                 }
-
+                return listaObjetos;
             } else {
 
-                String sql = "call guardarCuartel(?,?,?,?,?)";
-                try {
-                    PreparedStatement sentence = conexion.prepareStatement(sql);
-                    sentence.setString(1, nombre_cuartel);
-                    sentence.setString(2, localidad);
-                    sentence.setDouble(3, latitud);
-                    sentence.setDouble(4, longitud);
-                    if (actividad == true) {
-                        sentence.setInt(5, 1);
-                    } else {
-                        if (actividad == false) {
-                            sentence.setInt(5, 0);
-                        } else sentence.setInt(5, 1);
+                if (clase.equalsIgnoreCase("unidad")) {
+
+                    Query query = sesion.createQuery("From Unidad");
+                    List lista = query.list();
+                    List<Object[]> listaObjetos = new ArrayList<>();
+                    sesion.close();
+                    for (int i = 0; i < lista.size(); i++) {
+
+                        Object[] objects = new Object[]{((Unidad) lista.get(i)).getId(),
+                                ((Unidad) lista.get(i)).getnUnidad(), ((Unidad) lista.get(i)).getTipo(),
+                                ((Unidad) lista.get(i)).getNoTropas(), ((Unidad) lista.get(i)).getFechaCreacion(), ((Unidad) lista.get(i)).getCuartel().getnCuartel()};
+                        listaObjetos.add(objects);
                     }
+                    return listaObjetos;
+                } else {
+
+                    if(clase.equalsIgnoreCase("soldado")) {
+
+                        Query query = sesion.createQuery("From Soldado ");
+                        List lista = query.list();
+                        List<Object[]> listaObjetos = new ArrayList<>();
+                        sesion.close();
+                        for (int i = 0; i < lista.size(); i++) {
+                            Object[] objects = new Object[]{((Soldado) lista.get(i)).getId(),
+                                    ((Soldado) lista.get(i)).getNombre(), ((Soldado) lista.get(i)).getApellidos(),
+                                    ((Soldado) lista.get(i)).getRango(), ((Soldado) lista.get(i)).getFechaNacimiento(),
+                                    ((Soldado) lista.get(i)).getLugarNacimiento(),
+                                    ((Soldado) lista.get(i)).getUnidad().getnUnidad()};
+                            listaObjetos.add(objects);
 
 
-                    sentence.executeUpdate();
-                } catch (SQLException e) {
-                    Utilities.mensajeError("Error al dar de alta cuartel");
-                    e.printStackTrace();
-                }
-            }
-            cambiarUsoCuartel(0, nombre_cuartel);
-        } else {
-            Utilities.mensajeInformacion("No se puede guardar.\nCampo siendo usado por otra persona.\nInténtelo en unos segundos.");
-        }
-    }
-
-    public void guardarUnidadSentencia(String nombre_unidad, String tipo,
-                                       int no_tropas, Date fecha_creacion, String cuartel) {
-
-        if (usoUnidad(nombre_unidad) == 0) {
-            cambiarUsoUnidad(1, nombre_unidad);
-            if (Values.driver.equalsIgnoreCase("org.postgresql.Driver")) {
-
-                try {
-                    conexion.setAutoCommit(false);
-                    String sql = "INSERT INTO unidad (nombre_unidad, tipo, no_tropas," +
-                            " fecha_creacion, id_cuartel) VALUES (?,?,?,?,?)";
-                    int id_cuartel = 0;
-                    if ((id_cuartel = consultaID("id", "cuartel", "nombre_cuartel", cuartel)) != 0) ;
-
-                    PreparedStatement sentence = conexion.prepareStatement(sql);
-                    sentence.setString(1, nombre_unidad);
-                    sentence.setString(2, tipo);
-                    sentence.setInt(3, no_tropas);
-                    sentence.setDate(4, fecha_creacion);
-                    sentence.setInt(5, id_cuartel);
-
-                    sentence.executeUpdate();
-                    conexion.commit();
-                    conexion.setAutoCommit(true);
-                } catch (SQLException sqle) {
-                    Utilities.mensajeError("Error al dar de alta unidad");
-                }
-            } else {
-
-                try {
-                    String sql = "call guardarUnidad(?,?,?,?,?)";
-
-                    PreparedStatement sentence = conexion.prepareStatement(sql);
-                    sentence.setString(1, nombre_unidad);
-                    sentence.setString(2, tipo);
-                    sentence.setInt(3, no_tropas);
-                    sentence.setDate(4, fecha_creacion);
-                    sentence.setString(5, cuartel);
-
-                    sentence.executeUpdate();
-                } catch (SQLException sqle) {
-                    Utilities.mensajeError("Error al dar de alta unidad");
-                }
-            }
-            cambiarUsoUnidad(0, nombre_unidad);
-        } else {
-            Utilities.mensajeInformacion("No se puede guardar.\nCampo siendo usado por otra persona.\nInténtelo en unos segundos.");
-        }
-    }
-
-    public void guardarSoldadoSentencia(String nombre, String apellidos, Date fecha_nacimiento,
-                                        String rango, String lugar_nacimiento, String unidad) {
-
-        if (usoSoldado(nombre, apellidos) == 0) {
-            cambiarUsoSoldado(1, nombre, apellidos);
-            try {
-                conexion.setAutoCommit(false);
-                String sql = "INSERT INTO soldado (nombre, apellidos, fecha_nacimiento," +
-                        " rango, lugar_nacimiento, id_unidad)" +
-                        " VALUES (?,?,?,?,?,?)";
-                int id_unidad = 0;
-                if ((id_unidad = consultaID("id", "unidad", "nombre_unidad", unidad)) != 0) ;
-
-                PreparedStatement sentence = conexion.prepareStatement(sql);
-                sentence.setString(1, nombre);
-                sentence.setString(2, apellidos);
-                sentence.setDate(3, fecha_nacimiento);
-                sentence.setString(4, rango);
-                sentence.setString(5, lugar_nacimiento);
-                sentence.setInt(6, id_unidad);
-
-                sentence.executeUpdate();
-                conexion.commit();
-                conexion.setAutoCommit(true);
-            } catch (SQLException e) {
-                Utilities.mensajeError("Error al dar de alta soldado");
-            }
-            cambiarUsoSoldado(0, nombre, apellidos);
-        } else {
-            Utilities.mensajeInformacion("No se puede guardar.\nCampo siendo usado por otra persona.\nInténtelo en unos segundos.");
-        }
-    }
-
-    // Metodos que eliminan el objeto en la posicion seleccionada
-
-    public void borrarCuartelSentencia(int id) {
-
-        if (usoCuartel(id) == 0) {
-            cambiarUsoCuartel(1, id);
-            String sql = "DELETE FROM cuartel WHERE id = ?";
-
-            PreparedStatement sentencia = null;
-            try {
-                sentencia = conexion.prepareStatement(sql);
-                sentencia.setInt(1, id);
-                sentencia.executeUpdate();
-            } catch (SQLException e) {
-                Utilities.mensajeError("Error al borrar cuartel");
-            }
-            cambiarUsoCuartel(0, id);
-        } else {
-            Utilities.mensajeInformacion("No se puede guardar.\nCampo siendo usado por otra persona.\nInténtelo en unos segundos.");
-        }
-    }
-
-    public void borrarUnidadSentencia(int id) {
-
-        if (usoUnidad(id) == 0) {
-            cambiarUsoUnidad(1, id);
-            String sql = "DELETE FROM unidad WHERE id = ?";
-
-            PreparedStatement sentencia = null;
-            try {
-                sentencia = conexion.prepareStatement(sql);
-                sentencia.setInt(1, id);
-                sentencia.executeUpdate();
-            } catch (SQLException e) {
-                Utilities.mensajeError("Error al borrar unidad");
-            }
-            cambiarUsoUnidad(0, id);
-        } else {
-            Utilities.mensajeInformacion("No se puede guardar.\nCampo siendo usado por otra persona.\nInténtelo en unos segundos.");
-        }
-
-    }
-
-    public void borrarSoldadoSentencia(int id) {
-
-        if (usoSoldado(id) == 0) {
-            cambiarUsoSoldado(1, id);
-            String sql = "DELETE FROM soldado WHERE id = ?";
-
-            PreparedStatement sentencia = null;
-            try {
-                sentencia = conexion.prepareStatement(sql);
-                sentencia.setInt(1, id);
-                sentencia.executeUpdate();
-            } catch (SQLException e) {
-                Utilities.mensajeError("Error al borrar soldado");
-            }
-            cambiarUsoSoldado(0, id);
-        } else {
-            Utilities.mensajeInformacion("No se puede guardar.\nCampo siendo usado por otra persona.\nInténtelo en unos segundos.");
-        }
-
-    }
-
-    //Metodos de modificado
-
-    public void modificarCuartelSentencia(int id, String nombre_cuartel, Double latitud,
-                                 Double longitud, Boolean actividad, String localidad) {
-
-        if (usoCuartel(id) == 0) {
-            cambiarUsoSoldado(1, id);
-            String sql = "UPDATE cuartel SET nombre_cuartel = ?," +
-                    " latitud = ?, longitud = ?, actividad = ?, localidad = ? WHERE id = ?";
-
-            PreparedStatement sentence = null;
-
-            try {
-                sentence = conexion.prepareStatement(sql);
-                sentence.setString(1, nombre_cuartel);
-                sentence.setDouble(2, latitud);
-                sentence.setDouble(3, longitud);
-                sentence.setBoolean(4, actividad);
-                sentence.setString(5, localidad);
-                sentence.setInt(6, id);
-                sentence.executeUpdate();
-            } catch (SQLException e) {
-                Utilities.mensajeError("Error al modificar cuartel");
-            }
-            cambiarUsoSoldado(0, id);
-        } else {
-            Utilities.mensajeInformacion("No se puede guardar.\nCampo siendo usado por otra persona.\nInténtelo en unos segundos.");
-        }
-    }
-
-    public void modificarUnidadSentencia(int id, String nombre_unidad,
-                                         String tipo, int no_tropas,
-                                         Date fecha_creacion, String cuartel) {
-
-        if (usoUnidad(id) == 0) {
-            cambiarUsoUnidad(1, id);
-            try {
-                conexion.setAutoCommit(false);
-                String sql = "UPDATE unidad SET nombre_unidad = ?, tipo = ?," +
-                        " no_tropas = ?, fecha_creacion = ?, id_cuartel = ? WHERE id = ?";
-
-                PreparedStatement sentence = null;
-
-                int id_cuartel = 0;
-                if ((id_cuartel = consultaID("id", "cuartel", "nombre_cuartel", cuartel)) != 0);
-
-
-                sentence = conexion.prepareStatement(sql);
-                sentence.setString(1, nombre_unidad);
-                sentence.setString(2, tipo);
-                sentence.setInt(3, no_tropas);
-                sentence.setDate(4, fecha_creacion);
-                sentence.setInt(5, id_cuartel);
-                sentence.setInt(6, id);
-                sentence.executeUpdate();
-                conexion.commit();
-                conexion.setAutoCommit(true);
-            } catch (SQLException e) {
-                Utilities.mensajeError("Error al modificar unidad");
-                e.printStackTrace();
-            }
-            cambiarUsoUnidad(0, id);
-        } else {
-            Utilities.mensajeInformacion("No se puede guardar.\nCampo siendo usado por otra persona.\nInténtelo en unos segundos.");
-        }
-    }
-
-    public void modificarSoldadoSentencia(int id, String nombre, String apellidos,
-                                         String rango, Date fecha_nacimiento,
-                                         String lugar_nacimiento, String unidad) {
-
-        if (usoSoldado(id) == 0) {
-            cambiarUsoSoldado(1, id);
-            try {
-                conexion.setAutoCommit(false);
-                String sql = "UPDATE soldado SET nombre = ?, apellidos = ?," +
-                        " rango = ?, fecha_nacimiento = ?, lugar_nacimiento = ?, id_unidad = ? WHERE id = ?";
-
-                PreparedStatement sentence = null;
-
-                int id_unidad = 0;
-                if ((id_unidad = consultaID("id", "unidad", "nombre_unidad", unidad)) != 0) ;
-
-
-                sentence = conexion.prepareStatement(sql);
-                sentence.setString(1, nombre);
-                sentence.setString(2, apellidos);
-                sentence.setString(3, rango);
-                sentence.setDate(4, fecha_nacimiento);
-                sentence.setString(5, lugar_nacimiento);
-                sentence.setInt(6, id_unidad);
-                sentence.setInt(7, id);
-                sentence.executeUpdate();
-                conexion.commit();
-                conexion.setAutoCommit(true);
-            } catch (SQLException e) {
-                Utilities.mensajeError("Error al modificar soldado");
-            }
-            cambiarUsoSoldado(0, id);
-        } else {
-            Utilities.mensajeInformacion("No se puede guardar.\nCampo siendo usado por otra persona.\nInténtelo en unos segundos.");
-        }
-    }
-
-    public int consultaID(String select, String table, String campo, String condicion) throws SQLException{
-
-        String sql = "SELECT " + select + " FROM " + table + " WHERE " + campo + " = ?";
-        int id = 0;
-        PreparedStatement sentencia = null;
-
-            sentencia = conexion.prepareStatement(sql);
-            sentencia.setString(1, condicion);
-            ResultSet resultado = sentencia.executeQuery();
-
-            if (resultado.next())id = resultado.getInt(select);
-
-        return id;
-    }
-
-    public String consultaNombreCuartel_NombreUnidad(String tabla, int id) {
-
-        if (tabla.equalsIgnoreCase("cuartel")) {
-
-            String sql = "SELECT nombre_cuartel FROM cuartel WHERE id = ?";
-            String nombre = "";
-            PreparedStatement sentencia = null;
-            try {
-
-                sentencia = conexion.prepareStatement(sql);
-                sentencia.setInt(1, id);
-                ResultSet resultado = sentencia.executeQuery();
-
-                if (resultado.next())nombre = resultado.getString("nombre_cuartel");
-                return nombre;
-
-            } catch (SQLException e) {
-                Utilities.mensajeError("Error al cotejar datos en consulta Cuartel");
-            }
-
-        } else {
-
-            if (tabla.equalsIgnoreCase("unidad")) {
-
-                String sql = "SELECT nombre_unidad FROM unidad WHERE id = ?";
-                String nombre = "";
-                PreparedStatement sentencia = null;
-                try {
-
-                    sentencia = conexion.prepareStatement(sql);
-                    sentencia.setInt(1, id);
-                    ResultSet resultado = sentencia.executeQuery();
-
-                    if (resultado.next())nombre = resultado.getString("nombre_unidad");
-                    return nombre;
-
-                } catch (SQLException e) {
-                    Utilities.mensajeError("Error al cotejar datos en consulta Unidad");
-                }
-            }
-        }
-
-        return null;
-    }
-
-    public List<String> consultaActualizarComboBox(int op) {
-
-        List<String> ret;
-
-        if (op == 0) {
-
-            ret = new ArrayList<>();
-
-            String sql = "SELECT nombre_cuartel FROM cuartel";
-
-            PreparedStatement sentence = null;
-
-            try {
-                sentence = conexion.prepareStatement(sql);
-                ResultSet resultado = sentence.executeQuery();
-
-                while (resultado.next()) {
-
-                    ret.add(resultado.getString("nombre_cuartel"));
-                }
-
-                return ret;
-
-            } catch (SQLException e) {
-                Utilities.mensajeError("Error al actualizar combobox Unidad");
-            }
-
-        } else {
-
-            if (op == 1) {
-
-                ret = new ArrayList<>();
-
-                String sql = "SELECT nombre_unidad FROM unidad";
-
-                PreparedStatement sentence = null;
-
-                try {
-                    sentence = conexion.prepareStatement(sql);
-                    ResultSet resultado = sentence.executeQuery();
-
-                    while (resultado.next()) {
-
-                        ret.add(resultado.getString("nombre_unidad"));
-                    }
-
-                    return ret;
-
-                } catch (SQLException e) {
-                    Utilities.mensajeError("Error al actualizar combobox Soldado");
-                }
-            }
-        }
-
-        return null;
-    }
-
-    public List<Object[]> listar(String tabla) {
-
-        Object[] fila;
-        List<Object[]> list;
-
-        if (tabla.equalsIgnoreCase("cuartel")) {
-
-            String sql = "SELECT * FROM cuartel";
-            list = new ArrayList<>();
-            try {
-                PreparedStatement sentencia = null;
-
-                sentencia = conexion.prepareStatement(sql);
-                ResultSet resultado = sentencia.executeQuery();
-                while (resultado.next()) {
-
-                    int id = resultado.getInt("id");
-                    String nombre_cuartel = resultado.getString("nombre_cuartel");
-                    Double latitud = resultado.getDouble("latitud");
-                    Double longitud = resultado.getDouble("longitud");
-                    String localidad = resultado.getString("localidad");
-                    Boolean actividad = resultado.getBoolean("actividad");
-
-                    fila = new Object[]{id, nombre_cuartel, localidad, latitud,
-                            longitud, actividad};
-                    list.add(fila);
-                }
-                return list;
-            } catch (SQLException e) {
-                Utilities.mensajeError("Error al listar Cuartel");
-            }
-
-
-        } else {
-
-            if (tabla.equalsIgnoreCase("unidad")) {
-
-                String sql = "SELECT * FROM unidad";
-                list = new ArrayList<>();
-                try {
-                    PreparedStatement sentencia = null;
-
-                    sentencia = conexion.prepareStatement(sql);
-                    ResultSet resultado = sentencia.executeQuery();
-                    while (resultado.next()) {
-
-                        int id = resultado.getInt("id");
-                        String nombre_unidad = resultado.getString("nombre_unidad");
-                        String tipo = resultado.getString("tipo");
-                        int no_tropas = resultado.getInt("no_tropas");
-                        Date fecha_creacion = resultado.getDate("fecha_creacion");
-                        int id_cuartel = resultado.getInt("id_cuartel");
-
-                        fila = new Object[]{id, nombre_unidad, tipo, no_tropas, fecha_creacion,
-                                consultaNombreCuartel_NombreUnidad("cuartel", id_cuartel)};
-                        list.add(fila);
-                    }
-                    return list;
-                } catch (SQLException e) {
-                    Utilities.mensajeError("Error al listar Unidad");
-                }
-
-            } else {
-
-                if (tabla.equalsIgnoreCase("soldado")) {
-
-                    String sql = "SELECT * FROM soldado";
-                    list = new ArrayList<>();
-                    try {
-                        PreparedStatement sentencia = null;
-                        sentencia = conexion.prepareStatement(sql);
-                        ResultSet resultado = sentencia.executeQuery();
-                        while (resultado.next()) {
-
-                            int id = resultado.getInt("id");
-                            String nombre = resultado.getString("nombre");
-                            String apellidos = resultado.getString("apellidos");
-                            String rango = resultado.getString("rango");
-                            String lugar_nacimiento = resultado.getString("lugar_nacimiento");
-                            Date fecha_nacimiento = resultado.getDate("fecha_nacimiento");
-                            int id_unidad = resultado.getInt("id_unidad");
-
-                            fila = new Object[]{id, nombre, apellidos, rango, fecha_nacimiento, lugar_nacimiento,
-                                    consultaNombreCuartel_NombreUnidad("unidad", id_unidad)};
-                            list.add(fila);
                         }
-                        return list;
-                    } catch (SQLException e) {
-                        Utilities.mensajeError("Error al listar Soldado");
+                        return listaObjetos;
+                    } else {
+
+
+                        if (clase.equalsIgnoreCase("cuartel")) {
+
+                            Query query = sesion.createQuery("From Cuartel ");
+                            List lista = query.list();
+                            List<Object[]> listaObjetos = new ArrayList<>();
+                            sesion.close();
+                            for (int i = 0; i < lista.size(); i++) {
+
+                                Object[] objects = new Object[]{((Cuartel) lista.get(i)).getId(),
+                                        ((Cuartel) lista.get(i)).getnCuartel(),((Cuartel) lista.get(i)).getLocalidad(), ((Cuartel) lista.get(i)).getLatitud(),
+                                        ((Cuartel) lista.get(i)).getLongitud(), ((Cuartel) lista.get(i)).getActividad()};
+                                listaObjetos.add(objects);
+
+
+                            }
+                            return listaObjetos;
+                        }
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
+    public List listar(String clase) {
+        sesion = getSesion();
+        Query query = null;
+        if (clase.equalsIgnoreCase("arma")) {
+            query = sesion.createQuery("From Arma");
+        } else {
+
+            if (clase.equalsIgnoreCase("vehiculo")) {
+                query = sesion.createQuery("From Vehiculo");
+            } else {
+
+                if (clase.equalsIgnoreCase("unidad")) {
+                    query = sesion.createQuery("From Unidad");
+                }
+            }
+        }
+
+        List lista = query.list();
+        sesion.close();
+        return lista;
+    }
+
+    public Object cargar(String clase, int id) {
+        sesion = getSesion();
+        Query query = null;
+        if (clase.equalsIgnoreCase("cuartel")) {
+            query = sesion.createQuery("From Cuartel Where id = :id");
+        } else {
+
+            if (clase.equalsIgnoreCase("unidad")) {
+                query = sesion.createQuery("From Unidad Where id = :id");
+            } else {
+
+                if (clase.equalsIgnoreCase("soldado")) {
+                    query = sesion.createQuery("From Soldado Where id = :id");
+                } else {
+
+                    if (clase.equalsIgnoreCase("vehiculo")) {
+                        query = sesion.createQuery("From Vehiculo Where id = :id");
+                    } else {
+
+                        if (clase.equalsIgnoreCase("arma")) {
+                            query = sesion.createQuery("From Arma Where id = :id");
+                        }
                     }
                 }
             }
         }
 
-        return null;
+        query.setParameter("id", id);
+        Object object = query.uniqueResult();
+        return object;
     }
 
-    public Cuartel cargarCuartelSeleccionado(int id) {
+    public List<String> actualizarCombo(String tabla) {
+        sesion = getSesion();
+        Query query = null;
+        if(tabla.equalsIgnoreCase("Cuartel")) {
 
-        Cuartel cuartel = null;
+            query = sesion.createQuery("Select nCuartel From Cuartel");
+        } else {
 
-        String sql = "SELECT * FROM cuartel WHERE id = ?";
-        PreparedStatement sentence;
+            if (tabla.equalsIgnoreCase("UnidadView")) {
 
-        try {
-            sentence = conexion.prepareStatement(sql);
-            sentence.setInt(1, id);
-            ResultSet resultado = sentence.executeQuery();
-
-            cuartel = new Cuartel();
-
-            if (resultado.next()) {
-
-                cuartel.setnCuartel(resultado.getString("nombre_cuartel"));
-                cuartel.setLocalidad(resultado.getString("localidad"));
-                cuartel.setActividad(resultado.getBoolean("actividad"));
-                cuartel.setLatitud(resultado.getDouble("latitud"));
-                cuartel.setLongitud(resultado.getDouble("longitud"));
+                query = sesion.createQuery("Select nUnidad From Unidad");
             }
-
-
-        } catch (SQLException e) {
-            Utilities.mensajeError("Error al cargar Cuartel seleccionado");
         }
 
-        return cuartel;
+        List<String> list = (List<String>)query.list();
+        sesion.close();
+        return list;
     }
 
-    public Unidad cargarUnidadSeleccionada(int id) {
+    public Object getObjeto(String clase, String valor) {
+        sesion = getSesion();
+        Query query = null;
+        if (clase.equalsIgnoreCase("cuartel")) {
+            query = sesion.createQuery("From Cuartel Where nCuartel = :valor");
+        } else {
 
-        Unidad unidad = null;
+            if (clase.equalsIgnoreCase("unidad")) {
+                query = sesion.createQuery("From Unidad Where nUnidad = :valor");
+            } else {
 
-        String sql = "SELECT * FROM unidad WHERE id = ?";
-        PreparedStatement sentence;
+                if (clase.equalsIgnoreCase("soldado")) {
+                    query = sesion.createQuery("From Soldado Where apellidos = :valor");
+                } else {
 
-        try {
-            sentence = conexion.prepareStatement(sql);
-            sentence.setInt(1, id);
-            ResultSet resultado = sentence.executeQuery();
+                    if (clase.equalsIgnoreCase("vehiculo")) {
+                        query = sesion.createQuery("From Vehiculo Where nombre = :valor");
+                    } else {
 
-            unidad = new Unidad();
-            if (resultado.next()) {
-
-                unidad.setnUnidad(resultado.getString("nombre_unidad"));
-                unidad.setNoTropas(resultado.getInt("no_tropas"));
-                unidad.setFechaCreacion(resultado.getDate("fecha_creacion"));
-                unidad.setTipo(resultado.getString("tipo"));
-                unidad.setCuartel(consultaNombreCuartel_NombreUnidad("cuartel", resultado.getInt("id_cuartel")));
+                        if (clase.equalsIgnoreCase("arma")) {
+                            query = sesion.createQuery("From Arma Where nombre = :valor");
+                        }
+                    }
+                }
             }
-
-
-            return unidad;
-        } catch (SQLException e) {
-            Utilities.mensajeError("Error al cargar Unidad seleccionada");
         }
-
-        return unidad;
-    }
-
-    public Soldado cargarSoldadoSeleccionada(int id) {
-
-        Soldado soldado = null;
-
-        String sql = "SELECT * FROM soldado WHERE id = ?";
-        PreparedStatement sentence;
-
-        try {
-            sentence = conexion.prepareStatement(sql);
-            sentence.setInt(1, id);
-            ResultSet resultado = sentence.executeQuery();
-
-            soldado = new Soldado();
-
-            if (resultado.next()) {
-
-                soldado.setNombre(resultado.getString("nombre"));
-                soldado.setApellidos(resultado.getString("apellidos"));
-                soldado.setRango(resultado.getString("rango"));
-                soldado.setFechaNacimiento(resultado.getDate("fecha_nacimiento"));
-                soldado.setLugarNacimiento(resultado.getString("lugar_nacimiento"));
-                soldado.setUnidad(consultaNombreCuartel_NombreUnidad("unidad", resultado.getInt("id_unidad")));
-            }
-
-
-            return soldado;
-        } catch (SQLException e) {
-            Utilities.mensajeError("Error al cargar Soldado seleccionado");
-        }
-
-        return soldado;
+        query.setParameter("valor", valor);
+        return query.uniqueResult();
     }
 
     public List<Object[]> buscarCuartel(String busqueda, String campo) {
 
-        List<Object[]> list;
-        Object[] fila;
-        String sql = "SELECT * FROM cuartel WHERE " + campo + " LIKE '%" + busqueda + "%'";
-        list = new ArrayList<>();
-        try {
-            PreparedStatement sentencia = null;
+        sesion = getSesion();
+        Query query = sesion.createQuery("From Cuartel Where " + campo + " LIKE '%" + busqueda + "%'");
+        List lista = query.list();
+        List<Object[]> listaObjetos = new ArrayList<>();
+        sesion.close();
+        for (int i = 0; i < lista.size(); i++) {
 
-            sentencia = conexion.prepareStatement(sql);
-            ResultSet resultado = sentencia.executeQuery();
-            while (resultado.next()) {
+            Object[] objects = new Object[]{((Cuartel) lista.get(i)).getId(),
+                    ((Cuartel) lista.get(i)).getnCuartel(),((Cuartel) lista.get(i)).getLocalidad(), ((Cuartel) lista.get(i)).getLatitud(),
+                    ((Cuartel) lista.get(i)).getLongitud(), ((Cuartel) lista.get(i)).getActividad()};
+            listaObjetos.add(objects);
 
-                int id = resultado.getInt("id");
-                String nombre_cuartel = resultado.getString("nombre_cuartel");
-                Double latitud = resultado.getDouble("latitud");
-                Double longitud = resultado.getDouble("longitud");
-                String localidad = resultado.getString("localidad");
-                Boolean actividad = resultado.getBoolean("actividad");
 
-                fila = new Object[]{id, nombre_cuartel, localidad, latitud,
-                        longitud, actividad};
-                list.add(fila);
-            }
-            return list;
-        } catch (SQLException e) {
-            Utilities.mensajeError("Error al buscar Cuartel");
         }
-
-        return list;
+        return listaObjetos;
     }
 
     public List<Object[]> buscarUnidad(String busqueda, String campo) {
 
-        List<Object[]> list;
-        Object[] fila;
-        list = new ArrayList<>();
-        String sql;
+        sesion = getSesion();
+        Query query = null;
+
         if (campo.equalsIgnoreCase("cuartel")) {
-
-            List<Integer> ids = buscarCuartelUnidad(busqueda);
-
-            for (int i = 0; i < ids.size(); i++) {
-
-                try {
-                    sql = "SELECT * FROM unidad WHERE id_cuartel = ?";
-                    PreparedStatement sentencia = null;
-
-                    sentencia = conexion.prepareStatement(sql);
-                    sentencia.setInt(1, ids.get(i));
-                    ResultSet resultado = sentencia.executeQuery();
-                    while (resultado.next()) {
-
-                        int id = resultado.getInt("id");
-                        String nombre_unidad = resultado.getString("nombre_unidad");
-                        String tipo = resultado.getString("tipo");
-                        int no_tropas = resultado.getInt("no_tropas");
-                        Date fecha_creacion = resultado.getDate("fecha_creacion");
-                        int id_cuartel = resultado.getInt("id_cuartel");
-
-                        fila = new Object[]{id, nombre_unidad, tipo, no_tropas, fecha_creacion,
-                                consultaNombreCuartel_NombreUnidad("cuartel", id_cuartel)};
-                        list.add(fila);
-                    }
-
-                } catch (SQLException e) {
-                    Utilities.mensajeError("Error al buscar Unidad");
-                }
-            }
-
-            return list;
+            query = sesion.createQuery("From Unidad Where cuartel.nCuartel LIKE '%" + busqueda + "%'");
         } else {
-
-            sql = "SELECT * FROM unidad WHERE " + campo + " LIKE '%" + busqueda + "%'";
-
-            try {
-                PreparedStatement sentencia = null;
-
-                sentencia = conexion.prepareStatement(sql);
-                ResultSet resultado = sentencia.executeQuery();
-                while (resultado.next()) {
-
-                    int id = resultado.getInt("id");
-                    String nombre_unidad = resultado.getString("nombre_unidad");
-                    String tipo = resultado.getString("tipo");
-                    int no_tropas = resultado.getInt("no_tropas");
-                    Date fecha_creacion = resultado.getDate("fecha_creacion");
-                    int id_cuartel = resultado.getInt("id_cuartel");
-
-                    fila = new Object[]{id, nombre_unidad, tipo, no_tropas, fecha_creacion,
-                            consultaNombreCuartel_NombreUnidad("cuartel", id_cuartel)};
-                    list.add(fila);
-                }
-                return list;
-            } catch (SQLException e) {
-                Utilities.mensajeError("Error al buscar Unidad");
-            }
+            query = sesion.createQuery("From Unidad Where " + campo + " LIKE '%" + busqueda + "%'");
         }
 
-        return list;
+        List lista = query.list();
+        List<Object[]> listaObjetos = new ArrayList<>();
+        sesion.close();
+        for (int i = 0; i < lista.size(); i++) {
+
+            Object[] objects = new Object[]{((Unidad) lista.get(i)).getId(),
+                    ((Unidad) lista.get(i)).getnUnidad(), ((Unidad) lista.get(i)).getTipo(),
+                    ((Unidad) lista.get(i)).getNoTropas(), ((Unidad) lista.get(i)).getFechaCreacion(), ((Unidad) lista.get(i)).getCuartel().getnCuartel()};
+            listaObjetos.add(objects);
+        }
+        return listaObjetos;
+    }
+
+    public List<Object[]> buscarVehiculo(String busqueda, String campo) {
+
+        sesion = getSesion();
+        Query query = sesion.createQuery("From Vehiculo Where " + campo + " LIKE '%" + busqueda + "%'");
+        List lista = query.list();
+        List<Object[]> listaObjetos = new ArrayList<>();
+        sesion.close();
+        for (int i = 0; i < lista.size(); i++) {
+            Object[] objects = new Object[]{((Vehiculo) lista.get(i)).getId(),
+                    ((Vehiculo) lista.get(i)).getNombre(), ((Vehiculo) lista.get(i)).getCantidad_total(),
+                    ((Vehiculo) lista.get(i)).getDuracion_años(), ((Vehiculo) lista.get(i)).getAños_uso(),
+                    ((Vehiculo) lista.get(i)).getKilometros()};
+            listaObjetos.add(objects);
+
+
+        }
+        return listaObjetos;
+    }
+
+    public List<Object[]> buscarArma(String busqueda, String campo) {
+
+        sesion = getSesion();
+        Query query = sesion.createQuery("FROM Arma where " + campo + " LIKE '%" + busqueda + "%'");
+        List lista = query.list();
+        List<Object[]> listaObjetos = new ArrayList<>();
+        sesion.close();
+        for (int i = 0; i < lista.size(); i++) {
+
+            Object[] objects = new Object[]{((Arma) lista.get(i)).getId(),
+                    ((Arma) lista.get(i)).getNombre(), ((Arma) lista.get(i)).getCantidad_total(), ((Arma) lista.get(i)).getDuracion_años(), ((Arma) lista.get(i)).getCalibre(),
+                    ((Arma) lista.get(i)).getCantidad_municion()};
+            listaObjetos.add(objects);
+        }
+        return listaObjetos;
     }
 
     public List<Object[]> buscarSoldado(String busqueda, String campo) {
 
-        List<Object[]> list = new ArrayList<>();;
-        Object[] fila;
-        String sql;
-
+        sesion = getSesion();
+        Query query = null;
         if (campo.equalsIgnoreCase("unidad")) {
-            List<Integer> ids = buscarUnidadSoldado(busqueda);
 
-            for (int i = 0; i < ids.size(); i++) {
-
-                try {
-                    sql = "SELECT * FROM soldado WHERE id_unidad = ?";
-                    PreparedStatement sentencia = null;
-
-                    sentencia = conexion.prepareStatement(sql);
-                    sentencia.setInt(1, ids.get(i));
-                    ResultSet resultado = sentencia.executeQuery();
-                    while (resultado.next()) {
-
-                        int id = resultado.getInt("id");
-                        String nombre = resultado.getString("nombre");
-                        String apellidos = resultado.getString("apellidos");
-                        String rango = resultado.getString("rango");
-                        String lugar_nacimiento = resultado.getString("lugar_nacimiento");
-                        Date fecha_nacimiento = resultado.getDate("fecha_nacimiento");
-                        int id_unidad = resultado.getInt("id_unidad");
-
-                        fila = new Object[]{id, nombre, apellidos, rango, fecha_nacimiento, lugar_nacimiento,
-                                consultaNombreCuartel_NombreUnidad("unidad", id_unidad)};
-                        list.add(fila);
-                    }
-                } catch (SQLException e) {
-                    Utilities.mensajeError("Error al buscar Soldado");
-                }
-            }
-
-            return list;
+            query = sesion.createQuery("From Soldado Where unidad.nUnidad LIKE '%" + busqueda + "%'");
         } else {
 
             if (campo.equalsIgnoreCase("cuartel")) {
 
-                List<Integer> ids = buscarCuartelSoldado(busqueda);
-
-                for (int i = 0; i < ids.size(); i++) {
-
-                    try {
-                        sql = "SELECT * FROM soldado WHERE id_unidad = ?";
-                        PreparedStatement sentencia = null;
-
-                        sentencia = conexion.prepareStatement(sql);
-                        sentencia.setInt(1, ids.get(i));
-                        ResultSet resultado = sentencia.executeQuery();
-                        while (resultado.next()) {
-
-                            int id = resultado.getInt("id");
-                            String nombre = resultado.getString("nombre");
-                            String apellidos = resultado.getString("apellidos");
-                            String rango = resultado.getString("rango");
-                            String lugar_nacimiento = resultado.getString("lugar_nacimiento");
-                            Date fecha_nacimiento = resultado.getDate("fecha_nacimiento");
-                            int id_unidad = resultado.getInt("id_unidad");
-
-                            fila = new Object[]{id, nombre, apellidos, rango, fecha_nacimiento, lugar_nacimiento,
-                                    consultaNombreCuartel_NombreUnidad("unidad", id_unidad)};
-                            list.add(fila);
-                        }
-                    } catch (SQLException e) {
-                        Utilities.mensajeError("Error al buscar Soldado");
-                    }
-                }
-
-                return list;
+                query = sesion.createQuery("From Soldado Where unidad.cuartel.nCuartel LIKE '%" + busqueda + "%'");
             } else {
 
-                sql = "SELECT * FROM soldado WHERE " + campo + " LIKE '%" + busqueda + "%'";
-                try {
-                    PreparedStatement sentencia = null;
-
-                    sentencia = conexion.prepareStatement(sql);
-                    ResultSet resultado = sentencia.executeQuery();
-                    while (resultado.next()) {
-
-                        int id = resultado.getInt("id");
-                        String nombre = resultado.getString("nombre");
-                        String apellidos = resultado.getString("apellidos");
-                        String rango = resultado.getString("rango");
-                        String lugar_nacimiento = resultado.getString("lugar_nacimiento");
-                        Date fecha_nacimiento = resultado.getDate("fecha_nacimiento");
-                        int id_unidad = resultado.getInt("id_unidad");
-
-                        fila = new Object[]{id, nombre, apellidos, rango, fecha_nacimiento, lugar_nacimiento,
-                                consultaNombreCuartel_NombreUnidad("unidad", id_unidad)};
-                        list.add(fila);
-                    }
-                    return list;
-                } catch (SQLException e) {
-                    Utilities.mensajeError("Error al buscar Soldado");
-                }
+                query = sesion.createQuery("From Soldado Where " + campo + " LIKE '%" + busqueda + "%'");
             }
         }
-
-        return list;
-    }
-
-    public List<Integer> buscarCuartelUnidad(String busqueda) {
-
-        List<Integer> ids = new ArrayList<>();
-        String sql;
-
-        sql = "SELECT id FROM cuartel WHERE nombre_cuartel LIKE '%" + busqueda + "%'";
-
-        try {
-            PreparedStatement sentencia = null;
-
-            sentencia = conexion.prepareStatement(sql);
-            ResultSet resultado = sentencia.executeQuery();
-            while (resultado.next()) {
-
-                int id = resultado.getInt("id");
-                ids.add(id);
-            }
-
-        } catch (SQLException e) {
-            Utilities.mensajeError("Error al buscar Unidad");
+        List lista = query.list();
+        List<Object[]> listaObjetos = new ArrayList<>();
+        sesion.close();
+        for (int i = 0; i < lista.size(); i++) {
+            Object[] objects = new Object[]{((Soldado) lista.get(i)).getId(),
+                    ((Soldado) lista.get(i)).getNombre(), ((Soldado) lista.get(i)).getApellidos(),
+                    ((Soldado) lista.get(i)).getRango(), ((Soldado) lista.get(i)).getFechaNacimiento(),
+                    ((Soldado) lista.get(i)).getLugarNacimiento(),
+                    ((Soldado) lista.get(i)).getUnidad().getnUnidad()};
+            listaObjetos.add(objects);
         }
-
-        return ids;
-    }
-
-    public List<Integer> buscarUnidadSoldado(String busqueda) {
-
-        List<Integer> ids = new ArrayList<>();
-        String sql;
-
-        sql = "SELECT id FROM unidad WHERE nombre_unidad LIKE '%" + busqueda + "%'";
-
-        try {
-            PreparedStatement sentencia = null;
-
-            sentencia = conexion.prepareStatement(sql);
-            ResultSet resultado = sentencia.executeQuery();
-            while (resultado.next()) {
-
-                int id = resultado.getInt("id");
-                ids.add(id);
-            }
-
-        } catch (SQLException e) {
-            Utilities.mensajeError("Error al buscar Soldado");
-        }
-
-        return ids;
-    }
-
-    public List<Integer> buscarCuartelSoldado(String busqueda) {
-
-        List<Integer> ids = new ArrayList<>();
-        List<Integer> ids_unidad = new ArrayList<>();
-
-        String sql;
-
-        sql = "SELECT id FROM cuartel WHERE nombre_cuartel LIKE '%" + busqueda + "%'";
-
-        try {
-            PreparedStatement sentencia = null;
-
-            sentencia = conexion.prepareStatement(sql);
-            ResultSet resultado = sentencia.executeQuery();
-            while (resultado.next()) {
-
-                int id = resultado.getInt("id");
-                ids.add(id);
-            }
-
-            for (int i = 0; i < ids.size(); i++) {
-                sql = "SELECT id FROM unidad WHERE id_cuartel = ?";
-                sentencia = null;
-
-                sentencia = conexion.prepareStatement(sql);
-                sentencia.setInt(1, ids.get(i));
-                resultado = sentencia.executeQuery();
-
-                while (resultado.next()) {
-
-                    int id = resultado.getInt("id");
-                    ids_unidad.add(id);
-                }
-            }
-
-        } catch (SQLException e) {
-            Utilities.mensajeError("Error al buscar Soldado");
-        }
-
-        return ids_unidad;
-    }
-
-    public int usoCuartel(int id) {
-        int i = 0;
-        String sql = "SELECT uso FROM cuartel WHERE id = ?";
-        PreparedStatement sentencia = null;
-
-        try {
-            sentencia = conexion.prepareStatement(sql);
-            sentencia.setInt(1, id);
-            ResultSet resultado = sentencia.executeQuery();
-            if (resultado.next()) i = resultado.getInt("uso");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return i;
-    }
-
-    public int usoCuartel(String nombre_cuartel) {
-        int i = 0;
-        String sql = "SELECT uso FROM cuartel WHERE nombre_cuartel = ?";
-
-        PreparedStatement sentencia = null;
-
-        try {
-            sentencia = conexion.prepareStatement(sql);
-            sentencia.setString(1, nombre_cuartel);
-            ResultSet resultado = sentencia.executeQuery();
-            if (resultado.next()) i = resultado.getInt("uso");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return i;
-    }
-
-    public int usoUnidad(String nombre_unidad) {
-        int i = 0;
-        String sql = "SELECT uso FROM unidad WHERE nombre_unidad = ?";
-
-        PreparedStatement sentencia = null;
-
-        try {
-            sentencia = conexion.prepareStatement(sql);
-            sentencia.setString(1, nombre_unidad);
-            ResultSet resultado = sentencia.executeQuery();
-            if (resultado.next()) i = resultado.getInt("uso");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return i;
-    }
-
-    public int usoUnidad(int id) {
-        int i = 0;
-        String sql = "SELECT uso FROM unidad WHERE id = ?";
-
-        PreparedStatement sentencia = null;
-
-        try {
-            sentencia = conexion.prepareStatement(sql);
-            sentencia.setInt(1, id);
-            ResultSet resultado = sentencia.executeQuery();
-            if (resultado.next()) i = resultado.getInt("uso");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return i;
-    }
-
-    public int usoSoldado(int id) {
-        int i = 0;
-        String sql = "SELECT uso FROM soldado WHERE id = ?";
-
-        PreparedStatement sentencia = null;
-
-        try {
-            sentencia = conexion.prepareStatement(sql);
-            sentencia.setInt(1, id);
-            ResultSet resultado = sentencia.executeQuery();
-            if (resultado.next()) i = resultado.getInt("uso");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return i;
-    }
-
-    public int usoSoldado(String nombre, String apellidos) {
-        int i = 0;
-        String sql = "SELECT uso FROM soldado WHERE nombre = ? and apellidos = ?";
-
-        PreparedStatement sentencia = null;
-
-        try {
-            sentencia = conexion.prepareStatement(sql);
-            sentencia.setString(1, nombre);
-            sentencia.setString(2, apellidos);
-            ResultSet resultado = sentencia.executeQuery();
-            if (resultado.next()) i = resultado.getInt("uso");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return i;
-    }
-
-    public void cambiarUsoCuartel(int i, int id) {
-
-        String sql = "UPDATE cuartel SET uso = ? WHERE id = ?";
-
-        PreparedStatement sentencia = null;
-
-        try {
-            sentencia = conexion.prepareStatement(sql);
-            sentencia.setInt(1, i);
-            sentencia.setInt(2, id);
-            sentencia.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void cambiarUsoCuartel(int i, String nombre_cuartel) {
-
-        String sql = "UPDATE cuartel SET uso = ? WHERE nombre_cuartel = ?";
-
-        PreparedStatement sentencia = null;
-
-        try {
-            sentencia = conexion.prepareStatement(sql);
-            sentencia.setInt(1, i);
-            sentencia.setString(2, nombre_cuartel);
-            sentencia.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void cambiarUsoUnidad(int i, int id) {
-
-        String sql = "UPDATE unidad SET uso = ? WHERE id = ?";
-
-        PreparedStatement sentencia = null;
-
-        try {
-            sentencia = conexion.prepareStatement(sql);
-            sentencia.setInt(1, i);
-            sentencia.setInt(2, id);
-            sentencia.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void cambiarUsoUnidad(int i, String nombre_unidad) {
-
-        String sql = "UPDATE unidad SET uso = ? WHERE nombre_unidad = ?";
-
-        PreparedStatement sentencia = null;
-
-        try {
-            sentencia = conexion.prepareStatement(sql);
-            sentencia.setInt(1, i);
-            sentencia.setString(2, nombre_unidad);
-            sentencia.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void cambiarUsoSoldado(int i, int id) {
-
-        String sql = "UPDATE soldado SET uso = ? WHERE id = ?";
-
-        PreparedStatement sentencia = null;
-
-        try {
-            sentencia = conexion.prepareStatement(sql);
-            sentencia.setInt(1, i);
-            sentencia.setInt(2, id);
-            sentencia.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void cambiarUsoSoldado(int i, String nombre, String apellidos) {
-
-        String sql = "UPDATE soldado SET uso = ? WHERE nombre = ? and apellidos = ?";
-
-        PreparedStatement sentencia = null;
-
-        try {
-            sentencia = conexion.prepareStatement(sql);
-            sentencia.setInt(1, i);
-            sentencia.setString(2, nombre);
-            sentencia.setString(3, apellidos);
-            sentencia.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        return listaObjetos;
     }
 
     public ArrayList<Object> prepararExportar() {
-        String sql1 = "SELECT * FROM cuartel";
-        String sql2 = "SELECT * FROM unidad";
-        String sql3 = "SELECT * FROM soldado";
-        ArrayList<Object> lo = new ArrayList<>();
-        ArrayList<Cuartel> lc;
-        ArrayList<Unidad> lu;
-        ArrayList<Soldado> ls;
-        PreparedStatement sentence = null;
 
-        try {
-            lc = new ArrayList<>();
-            sentence = conexion.prepareStatement(sql1);
-            ResultSet resultado = sentence.executeQuery();
-
-            while (resultado.next()) {
-                Cuartel cuartel = new Cuartel();
-                    cuartel.setnCuartel(resultado.getString("nombre_cuartel"));
-                    cuartel.setLocalidad(resultado.getString("localidad"));
-                    cuartel.setActividad(resultado.getBoolean("actividad"));
-                    cuartel.setLatitud(resultado.getDouble("latitud"));
-                    cuartel.setLongitud(resultado.getDouble("longitud"));
-                lc.add(cuartel);
-            }
-            lo.add(lc);
-
-            lu = new ArrayList<>();
-            sentence = conexion.prepareStatement(sql2);
-            resultado = sentence.executeQuery();
-
-            while (resultado.next()) {
-                Unidad unidad = new Unidad();
-
-                unidad.setnUnidad(resultado.getString("nombre_unidad"));
-                unidad.setNoTropas(resultado.getInt("no_tropas"));
-                unidad.setFechaCreacion(resultado.getDate("fecha_creacion"));
-                unidad.setTipo(resultado.getString("tipo"));
-                unidad.setCuartel(consultaNombreCuartel_NombreUnidad("cuartel", resultado.getInt("id_cuartel")));
-
-                lu.add(unidad);
-            }
-            lo.add(lu);
-
-            ls = new ArrayList<>();
-            sentence = conexion.prepareStatement(sql3);
-            resultado = sentence.executeQuery();
-
-            while (resultado.next()) {
-                Soldado soldado = new Soldado();
-
-                soldado.setNombre(resultado.getString("nombre"));
-                soldado.setApellidos(resultado.getString("apellidos"));
-                soldado.setRango(resultado.getString("rango"));
-                soldado.setFechaNacimiento(resultado.getDate("fecha_nacimiento"));
-                soldado.setLugarNacimiento(resultado.getString("lugar_nacimiento"));
-                soldado.setUnidad(consultaNombreCuartel_NombreUnidad("unidad", resultado.getInt("id_unidad")));
-
-                ls.add(soldado);
-            }
-            lo.add(ls);
-
-        } catch (SQLException e) {
-            Utilities.mensajeError("Error al preparar datos para documento xml");
-        }
-
-        return lo;
+        return null;
     }
 
     public void cargarImport(ArrayList<Object> pack) {
-        ArrayList<Cuartel> lc = (ArrayList<Cuartel>) pack.get(0);
-        ArrayList<Unidad> lu = (ArrayList<Unidad>) pack.get(1);
-        ArrayList<Soldado> ls = (ArrayList<Soldado>) pack.get(2);
-
-        for (int i = 0; i < lc.size(); i++) {
-            guardarCuartelSentencia(lc.get(i).getnCuartel(), lc.get(i).getLocalidad(), lc.get(i).getLatitud(),
-                    lc.get(i).getLongitud(), lc.get(i).getActividad());
-        }
-
-        for (int i = 0; i < lu.size(); i++) {
-            guardarUnidadSentencia(lu.get(i).getnUnidad(), lu.get(i).getTipo(), lu.get(i).getNoTropas(),
-                    new Date(lu.get(i).getFechaCreacion().getTime()), lu.get(i).getCuartel());
-        }
-
-        for (int i = 0; i < ls.size(); i++) {
-            guardarSoldadoSentencia(ls.get(i).getNombre(), ls.get(i).getApellidos(),
-                    new Date(ls.get(i).getFechaNacimiento().getTime()), ls.get(i).getRango(),
-                    ls.get(i).getLugarNacimiento(), ls.get(i).getUnidad());
-        }
+        //TODO hacer cargar import
     }
 
     // Metodo que exporta a XML los objetos, en una ruta determinada
@@ -1458,7 +505,7 @@ public class Projectmodel {
 
             nodoDatos = doc.createElement("n_cuartel");
             nodoUnidad.appendChild(nodoDatos);
-            txt = doc.createTextNode(unidad.getCuartel());
+            txt = doc.createTextNode(""); //FIXME Arreglar
             nodoDatos.appendChild(txt);
 
             nodoDatos = doc.createElement("no_tropas");
@@ -1504,7 +551,7 @@ public class Projectmodel {
 
             nodoDatos = doc.createElement("n_unidad");
             nodoSoldado.appendChild(nodoDatos);
-            txt = doc.createTextNode(soldado.getUnidad());
+            txt = doc.createTextNode(""); //FIXME Arreglar
             nodoDatos.appendChild(txt);
         }
 
@@ -1556,7 +603,7 @@ public class Projectmodel {
             lcuartel.add(c);
         }
 
-        // Extraccion de los datos Unidad
+        // Extraccion de los datos UnidadView
 
         NodeList unidades = doc.getElementsByTagName("unidad");
         for (int i = 0; i < unidades.getLength(); i++) {
@@ -1569,8 +616,9 @@ public class Projectmodel {
                     .getChildNodes().item(0).getNodeValue());
             u.setTipo(elemento.getElementsByTagName("tipo").item(0)
                     .getChildNodes().item(0).getNodeValue());
-            u.setCuartel(elemento.getElementsByTagName("n_cuartel").item(0)
-                    .getChildNodes().item(0).getNodeValue());
+            /*u.setCuartel(elemento.getElementsByTagName("n_cuartel").item(0)
+                    .getChildNodes().item(0).getNodeValue());*/
+            //FIXME Arreglar
             u.setNoTropas(Integer.valueOf(elemento.getElementsByTagName("no_tropas").item(0)
                     .getChildNodes().item(0).getNodeValue()));
             u.setFechaCreacion(format.parse(elemento.getElementsByTagName("fecha_creacion").item(0)
@@ -1592,8 +640,9 @@ public class Projectmodel {
                     .getChildNodes().item(0).getNodeValue());
             s.setApellidos(elemento.getElementsByTagName("apellidos").item(0)
                     .getChildNodes().item(0).getNodeValue());
-            s.setUnidad(elemento.getElementsByTagName("n_unidad").item(0)
-                    .getChildNodes().item(0).getNodeValue());
+            /*s.setUnidad(elemento.getElementsByTagName("n_unidad").item(0)
+                    .getChildNodes().item(0).getNodeValue());*/
+            //FIXME Arreglar
             s.setRango(elemento.getElementsByTagName("rango").item(0)
                     .getChildNodes().item(0).getNodeValue());
             s.setFechaNacimiento(format.parse(elemento.getElementsByTagName("fecha_nacimiento").item(0)

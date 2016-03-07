@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" 
+"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+ <hibernate-configuration>
+ 	<session-factory>
+		<property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+     	<property name="connection.url">jdbc:mysql://localhost/ejercito</property>
+      	<property name="connection.username">root</property>
+      	<property name="connection.password">pamaloyo18</property>
+      	<property name="dialect">org.hibernate.dialect.MySQL5Dialect</property>
+     	<property name="hibernate.show_sql">true</property>
+
+     	<mapping class="com.raider.principal.base.Arma"/>
+     	<mapping class="com.raider.principal.base.Usuario"/>
+		<mapping class="com.raider.principal.base.Cuartel"/>
+		<mapping class="com.raider.principal.base.Soldado"/>
+		<mapping class="com.raider.principal.base.Vehiculo"/>
+		<mapping class="com.raider.principal.base.Unidad"/>
+
+  	</session-factory>
+</hibernate-configuration>

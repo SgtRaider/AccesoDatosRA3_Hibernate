@@ -13,7 +13,7 @@ public class Ventana {
     // Variables de la GUI Ventana
 
     public JTabbedPane tabbedPane1;
-    private JPanel p1;
+    public JPanel p1;
     public JTextField txtLongitud;
     public JTextField txtLatitud;
     public JTextField txtLocalidad;
@@ -48,6 +48,33 @@ public class Ventana {
     public JComboBox cbTablaSoldado;
     public JComboBox cbTablaUnidad;
     public JComboBox cbTablaCuartel;
+    public JButton btUnidadUnidad;
+    public JButton btUnidadVehiculos;
+    public JButton btSoldadoArma;
+    public JButton btArmasGuardar;
+    public JButton btArmasModificar;
+    public JButton btArmasEliminar;
+    public JButton btVehiculosGuardar;
+    public JButton btVehiculosModificar;
+    public JButton btVehiculosEliminar;
+    public JTextField txtVehiculoCantidadTotal;
+    public JTextField txtVehiculoDuracionAnos;
+    public JTextField txtVehiculoKilometros;
+    public JTextField txtArmaCantidadTotal;
+    public JTextField txtArmaDuracionAnos;
+    public JTextField txtArmaCantidadMunicion;
+    public JTextField txtArmaNombre;
+    public JTextField txtArmaCalibre;
+    public JTextField txtArmaBuscar;
+    public JTextField txtVehiculoNombre;
+    public JTextField txtVehiculoAnosUso;
+    public JTextField txtVehiculoBusqueda;
+    public JComboBox cbArmaBusqueda;
+    public JComboBox cbVehiculoBusqueda;
+    public JTable tVehiculo;
+    public JTable tArma;
+    public JList lVehiculos;
+    public JList lUnidades;
 
     public static JMenuBar mbVentana;
     public static JMenu mOpciones;
@@ -85,14 +112,12 @@ public class Ventana {
         mbVentana = new JMenuBar();
 
         mOpciones = new JMenu("Opciones");
-        miPreferencias = new JMenuItem("Preferencias");
         miExportar = new JMenuItem("Exportar");
         miImportar = new JMenuItem("Importar");
         miLogin = new JMenuItem("Login");
 
         mbVentana.add(mOpciones);
         mOpciones.add(miLogin);
-        mOpciones.add(miPreferencias);
         mOpciones.add(miExportar);
         mOpciones.add(miImportar);
     }

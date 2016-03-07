@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ArtifactsWorkspaceSettings">
     <artifacts-to-build>
-      <artifact name="ProyectoRA2:jar" />
+      <artifact name="ProyectoRA3:jar" />
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
@@ -25,125 +25,69 @@
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
   </component>
+  <component name="DatabaseView">
+    <option name="FLATTEN" value="false" />
+    <option name="GROUP_BY_TYPE" value="true" />
+    <option name="SORT_CHILDREN" value="false" />
+    <option name="SHOW_TABLE_CONSTRAINTS" value="true" />
+  </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FavoritesManager">
     <favorites_list name="ProyectoRA1" />
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="Projectmodel.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/raider/principal/model/Projectmodel.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="1414" column="55" selection-start-line="1414" selection-start-column="55" selection-end-line="1414" selection-end-column="55" />
-              <folding>
-                <marker date="1449695703968" expanded="true" signature="5429:5526" placeholder="SELECT usuar..usuarios..." />
-                <marker date="1449695703968" expanded="true" signature="5573:5676" placeholder="SELECT usuar..usuarios..." />
-                <marker date="1449695703968" expanded="true" signature="7220:7345" placeholder="INSERT INTO ..." />
-                <marker date="1449695703968" expanded="true" signature="9798:9929" placeholder="INSERT INTO ..." />
-                <marker date="1449695703968" expanded="true" signature="11963:12135" placeholder="INSERT INTO ..." />
-                <marker date="1449695703968" expanded="true" signature="13332:13364" placeholder="DELETE FROM ..." />
-                <marker date="1449695703968" expanded="true" signature="14049:14080" placeholder="DELETE FROM ..." />
-                <marker date="1449695703968" expanded="true" signature="14767:14799" placeholder="DELETE FROM ..." />
-                <marker date="1449695703968" expanded="true" signature="15646:15778" placeholder="UPDATE cuart..." />
-                <marker date="1449695703968" expanded="true" signature="16957:17095" placeholder="UPDATE unida..." />
-                <marker date="1449695703968" expanded="true" signature="18531:18687" placeholder="UPDATE solda..." />
-                <marker date="1449695703968" expanded="true" signature="19857:19921" placeholder="SELECT missi..missingValue..." />
-                <marker date="1449695703968" expanded="true" signature="20398:20445" placeholder="SELECT missi..missingValue..." />
-                <marker date="1449695703968" expanded="true" signature="21071:21116" placeholder="SELECT nombr..cuartel..." />
-                <marker date="1449695703968" expanded="true" signature="21912:21946" placeholder="SELECT nombr..cuartel..." />
-                <marker date="1449695703968" expanded="true" signature="22550:22582" placeholder="SELECT nombr..unidad..." />
-                <marker date="1449695703968" expanded="true" signature="23343:23364" placeholder="SELECT * FRO..cuartel..." />
-                <marker date="1449695703968" expanded="true" signature="24505:24519" placeholder="SELECT * FRO..cuartel..." />
-                <marker date="1449695703968" expanded="true" signature="24505:24525" placeholder="SELECT * FRO..unidad..." />
-                <marker date="1449695703968" expanded="true" signature="25795:25809" placeholder="SELECT * FRO..unidad..." />
-                <marker date="1449695703968" expanded="true" signature="25795:25816" placeholder="SELECT * FRO..soldado..." />
-                <marker date="1449695703968" expanded="true" signature="27336:27370" placeholder="SELECT * FRO..cuartel..." />
-                <marker date="1449695703968" expanded="true" signature="28285:28318" placeholder="SELECT * FRO..cuartel..." />
-                <marker date="1449695703968" expanded="true" signature="29293:29327" placeholder="SELECT * FRO..unidad..." />
-                <marker date="1449695703968" expanded="true" signature="30434:30501" placeholder="SELECT * FRO..cuartel..." />
-                <marker date="1449695703968" expanded="true" signature="31882:31923" placeholder="SELECT * FRO..unidad..." />
-                <marker date="1449695703968" expanded="true" signature="33112:33178" placeholder="SELECT * FRO..unidad..." />
-                <marker date="1449695703968" expanded="true" signature="34636:34676" placeholder="SELECT * FRO..soldado..." />
-                <marker date="1449695703968" expanded="true" signature="34636:34677" placeholder="SELECT * FRO..soldado..." />
-                <marker date="1449695703968" expanded="true" signature="36182:36223" placeholder="SELECT * FRO..soldado..." />
-                <marker date="1449695703968" expanded="true" signature="37603:37670" placeholder="SELECT * FRO..soldado..." />
-                <marker date="1449695703968" expanded="true" signature="39084:39153" placeholder="SELECT id FR..unidad..." />
-                <marker date="1449695703968" expanded="true" signature="39752:39819" placeholder="SELECT * FRO..soldado..." />
-                <marker date="1449695703968" expanded="true" signature="40475:40544" placeholder="SELECT id FR..unidad..." />
-                <marker date="1449695703968" expanded="true" signature="40934:40976" placeholder="SELECT id FR..unidad..." />
-                <marker date="1449695703968" expanded="true" signature="41568:41604" placeholder="SELECT uso F..cuartel..." />
-                <marker date="1449695703968" expanded="true" signature="42078:42126" placeholder="SELECT uso F..cuartel..." />
-                <marker date="1449695703968" expanded="true" signature="42614:42660" placeholder="SELECT uso F..cuartel..." />
-                <marker date="1449695703968" expanded="true" signature="43133:43168" placeholder="SELECT uso F..unidad..." />
-                <marker date="1449695703968" expanded="true" signature="43628:43664" placeholder="SELECT uso F..unidad..." />
-                <marker date="1449695703968" expanded="true" signature="44149:44178" placeholder="SELECT uso F..soldado..." />
-                <marker date="1449695703968" expanded="true" signature="44149:44179" placeholder="SELECT uso F..soldado..." />
-                <marker date="1449695703968" expanded="true" signature="44149:44200" placeholder="SELECT uso F..soldado..." />
-                <marker date="1449695703968" expanded="true" signature="44149:44207" placeholder="SELECT uso F..soldado..." />
-                <marker date="1449695703968" expanded="true" signature="44718:44757" placeholder="UPDATE cuart..." />
-                <marker date="1449695703968" expanded="true" signature="45162:45213" placeholder="UPDATE cuart..." />
-                <marker date="1449695703968" expanded="true" signature="45617:45655" placeholder="UPDATE unida..." />
-                <marker date="1449695703968" expanded="true" signature="46058:46107" placeholder="UPDATE unida..." />
-                <marker date="1449695703968" expanded="true" signature="46511:46550" placeholder="UPDATE cuart..." />
-                <marker date="1449695703968" expanded="true" signature="46965:47008" placeholder="UPDATE solda..." />
-                <marker date="1449695703968" expanded="true" signature="46965:47026" placeholder="UPDATE solda..." />
-                <marker date="1449695703968" expanded="true" signature="47469:47490" placeholder="SELECT nombr..cuartel..." />
-                <marker date="1449695703968" expanded="true" signature="47516:47536" placeholder="SELECT * FRO..unidad..." />
-                <marker date="1449695703968" expanded="true" signature="47562:47576" placeholder="SELECT * FRO..cuartel..." />
-                <marker date="1449695703968" expanded="true" signature="47562:47583" placeholder="SELECT * FRO..soldado..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="HibenateUtil.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/raider/principal/util/HibenateUtil.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="23" column="51" selection-start-line="23" selection-start-column="51" selection-end-line="23" selection-end-column="51" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="hibernate.cfq.tld" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/com/raider/principal/hibernate.cfq.tld">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.4814189">
-              <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="Arma.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/raider/principal/base/Arma.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="5" column="17" selection-start-line="5" selection-start-column="17" selection-end-line="5" selection-end-column="17" />
+              <caret line="42" column="5" selection-start-line="42" selection-start-column="5" selection-end-line="42" selection-end-column="5" />
+              <folding>
+                <element signature="e#848#849#0" expanded="true" />
+                <element signature="e#873#874#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Cuartel.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/raider/principal/base/Cuartel.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="13" column="13" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Vehiculo.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/raider/principal/base/Vehiculo.java">
+      <file leaf-file-name="Soldado.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/raider/principal/base/Soldado.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="5" column="21" selection-start-line="5" selection-start-column="21" selection-end-line="5" selection-end-column="21" />
+              <caret line="47" column="0" selection-start-line="47" selection-start-column="0" selection-end-line="47" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Preferencias.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/raider/principal/Gui/Preferencias.java">
+      <file leaf-file-name="Unidad.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/raider/principal/base/Unidad.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="40" column="20" selection-start-line="40" selection-start-column="20" selection-end-line="40" selection-end-column="20" />
+              <caret line="133" column="0" selection-start-line="133" selection-start-column="0" selection-end-line="133" selection-end-column="0" />
+              <folding>
+                <element signature="e#2929#2930#0" expanded="true" />
+                <element signature="e#2966#2967#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Projectmodel.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/com/raider/principal/model/Projectmodel.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.37942666">
+              <caret line="90" column="32" selection-start-line="90" selection-start-column="32" selection-end-line="90" selection-end-column="32" />
               <folding />
             </state>
           </provider>
@@ -153,7 +97,7 @@
         <entry file="file://$PROJECT_DIR$/src/com/raider/principal/controller/Projectcontroller.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="251" column="6" selection-start-line="251" selection-start-column="6" selection-end-line="251" selection-end-column="6" />
+              <caret line="133" column="21" selection-start-line="133" selection-start-column="21" selection-end-line="133" selection-end-column="21" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -161,10 +105,16 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Ventana.form" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/raider/principal/Gui/Ventana.form">
-          <provider selected="true" editor-type-id="ui-designer">
-            <state />
+      <file leaf-file-name="Vehiculo.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/raider/principal/base/Vehiculo.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="101" column="28" selection-start-line="101" selection-start-column="28" selection-end-line="101" selection-end-column="28" />
+              <folding>
+                <element signature="e#2001#2002#0" expanded="true" />
+                <element signature="e#2051#2052#0" expanded="true" />
+              </folding>
+            </state>
           </provider>
         </entry>
       </file>
@@ -192,28 +142,39 @@
         <option value="$PROJECT_DIR$/src/com/raider/principal/Gui/Ventanas.form" />
         <option value="$PROJECT_DIR$/src/com/raider/principal/Gui/Ventanas.java" />
         <option value="$PROJECT_DIR$/src/com/raider/principal/Util/Util.java" />
-        <option value="$PROJECT_DIR$/src/com/raider/principal/base/Unidad.java" />
-        <option value="$PROJECT_DIR$/src/com/raider/principal/base/Soldado.java" />
-        <option value="$PROJECT_DIR$/src/com/raider/principal/base/Cuartel.java" />
         <option value="$PROJECT_DIR$/src/com/raider/principal/Util/Constant.java" />
         <option value="$PROJECT_DIR$/src/com/raider/principal/Util/FolderFilter.java" />
         <option value="$PROJECT_DIR$/src/com/raider/principal/Gui/Login.form" />
         <option value="$PROJECT_DIR$/src/com/raider/principal/Gui/Login.java" />
         <option value="$PROJECT_DIR$/src/com/raider/principal/Util/Values.java" />
-        <option value="$PROJECT_DIR$/src/com/raider/principal/Gui/Ventana.java" />
         <option value="$PROJECT_DIR$/src/databases/ejercitoPSQL.sql" />
-        <option value="$PROJECT_DIR$/src/com/raider/principal/procesos/Listado.java" />
-        <option value="$PROJECT_DIR$/src/com/raider/principal/util/Values.java" />
         <option value="$PROJECT_DIR$/src/com/raider/principal/Gui/Preferencias.form" />
         <option value="$PROJECT_DIR$/src/com/raider/principal/Gui/Preferencias.java" />
         <option value="$PROJECT_DIR$/src/com/raider/principal/procesos/ComprobacionClaveSeguridad.java" />
-        <option value="$PROJECT_DIR$/src/com/raider/principal/controller/Projectcontroller.java" />
         <option value="$PROJECT_DIR$/configuracion.props" />
-        <option value="$PROJECT_DIR$/src/com/raider/principal/model/Projectmodel.java" />
         <option value="$PROJECT_DIR$/src/databases/ejercitoMysql.sql" />
-        <option value="$PROJECT_DIR$/src/com/raider/principal/Gui/Ventana.form" />
         <option value="$PROJECT_DIR$/src/com/raider/principal/util/HibenateUtil.java" />
         <option value="$PROJECT_DIR$/src/com/raider/principal/hibernate.cfq.tld" />
+        <option value="$PROJECT_DIR$/src/com/raider/principal/Gui/Armas.form" />
+        <option value="$PROJECT_DIR$/src/com/raider/principal/Gui/Vehiculos.form" />
+        <option value="$PROJECT_DIR$/src/com/raider/principal/base/Usuario.java" />
+        <option value="$PROJECT_DIR$/src/com/raider/principal/base/Cuartel.java" />
+        <option value="$PROJECT_DIR$/src/com/raider/principal/util/Values.java" />
+        <option value="$PROJECT_DIR$/src/com/raider/principal/procesos/Listado.java" />
+        <option value="$PROJECT_DIR$/src/com/raider/principal/base/Arma.java" />
+        <option value="$PROJECT_DIR$/src/com/raider/principal/base/Soldado.java" />
+        <option value="$PROJECT_DIR$/src/com/raider/principal/Gui/Ventana.form" />
+        <option value="$PROJECT_DIR$/src/com/raider/principal/Gui/UnidadView.form" />
+        <option value="$PROJECT_DIR$/src/com/raider/principal/Gui/VehiculosView.java" />
+        <option value="$PROJECT_DIR$/src/com/raider/principal/Gui/Ventana.java" />
+        <option value="$PROJECT_DIR$/src/com/raider/principal/base/Vehiculo.java" />
+        <option value="$PROJECT_DIR$/src/com/raider/principal/Gui/ArmasView.java" />
+        <option value="$PROJECT_DIR$/src/com/raider/principal/Gui/UnidadView.java" />
+        <option value="$PROJECT_DIR$/src/com/raider/principal/base/Unidad.java" />
+        <option value="$PROJECT_DIR$/src/com/raider/principal/controller/Projectcontroller.java" />
+        <option value="$PROJECT_DIR$/out/production/ProyectoRA2/hibernate.cfg.xml" />
+        <option value="$PROJECT_DIR$/src/com/raider/principal/model/Projectmodel.java" />
+        <option value="$PROJECT_DIR$/src/hibernate.cfg.xml" />
       </list>
     </option>
   </component>
@@ -225,9 +186,27 @@
     <order />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-1" />
-    <option name="width" value="1368" />
-    <option name="height" value="744" />
+    <option name="width" value="1366" />
+    <option name="height" value="743" />
+  </component>
+  <component name="ProjectInspectionProfilesVisibleTreeState">
+    <entry key="Project Default">
+      <profile-state>
+        <expanded-state>
+          <State>
+            <id />
+          </State>
+          <State>
+            <id>JPA issues</id>
+          </State>
+        </expanded-state>
+        <selected-state>
+          <State>
+            <id>JpaAttributeTypeInspection</id>
+          </State>
+        </selected-state>
+      </profile-state>
+    </entry>
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <OptionsSetting value="true" id="Add" />
@@ -252,188 +231,78 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="ProyectoRA2" />
+              <option name="myItemId" value="ProyectoRA3" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="External Libraries" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="ProyectoRA2" />
+              <option name="myItemId" value="ProyectoRA3" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="ProyectoRA2" />
+              <option name="myItemId" value="ProyectoRA3" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="ProyectoRA2" />
+              <option name="myItemId" value="ProyectoRA3" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="ProyectoRA2" />
+              <option name="myItemId" value="ProyectoRA3" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ProyectoRA2" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ProyectoRA2" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="libs" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ProyectoRA2" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ProyectoRA2" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="databases" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ProyectoRA2" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ProyectoRA2" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="principal" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ProyectoRA2" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ProyectoRA2" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="principal" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="base" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ProyectoRA2" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ProyectoRA2" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="out" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ProyectoRA2" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ProyectoRA2" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="out" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="artifacts" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ProyectoRA2_jar" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
-      <pane id="PackagesPane" />
       <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="FullScreen" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="project.structure.last.edited" value="Modules" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../ProyectoRA4" />
+    <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.WIDTH" value="316" />
+    <property name="UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.WIDTH" value="235" />
     <property name="OverrideImplement.combined" value="true" />
     <property name="OverrideImplement.overriding.sorted" value="false" />
     <property name="recentsLimit" value="5" />
     <property name="dynamic.classpath" value="false" />
     <property name="UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.SHOW" value="false" />
-    <property name="UI_DESIGNER_EDITOR_MODE.PaletteManager.SHOW" value="true" />
-    <property name="SearchEverywhereHistoryKey" value="buscar&#9;null&#9;null" />
+    <property name="UI_DESIGNER_EDITOR_MODE.PaletteManager.SHOW" value="false" />
+    <property name="SearchEverywhereHistoryKey" value="listar&#9;PSI&#9;JAVA://com.raider.principal.controller.Projectcontroller#listarArma&#10;buscar&#9;null&#9;null" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="settings.editor.splitter.proportion" value="0.2" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src" />
       <recent name="$PROJECT_DIR$/src/com/raider/principal" />
       <recent name="$PROJECT_DIR$/src/libs" />
       <recent name="$PROJECT_DIR$/src/databases" />
       <recent name="$PROJECT_DIR$/.." />
     </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src" />
+    </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="com.raider.principal" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Ventana">
+  <component name="RunManager" selected="JAR Application.ProyectoRA3.jar">
     <configuration default="false" name="Ventana" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.raider.principal.Gui.Ventana" />
       <option name="VM_PARAMETERS" value="" />
@@ -450,6 +319,11 @@
     </configuration>
     <configuration default="false" name="ProyectoRA2.jar" type="JarApplication" factoryName="JAR Application" temporary="true">
       <option name="JAR_PATH" value="$PROJECT_DIR$/out/artifacts/ProyectoRA2_jar/ProyectoRA2.jar" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="ProyectoRA3.jar" type="JarApplication" factoryName="JAR Application" temporary="true">
+      <option name="JAR_PATH" value="$PROJECT_DIR$/out/artifacts/ProyectoRA3_jar/ProyectoRA3.jar" />
       <envs />
       <method />
     </configuration>
@@ -511,7 +385,7 @@
       <method />
     </configuration>
     <configuration default="true" type="JarApplication" factoryName="JAR Application">
-      <option name="JAR_PATH" value="$PROJECT_DIR$/out/artifacts/ProyectoRA2_jar/ProyectoRA2.jar" />
+      <option name="JAR_PATH" value="$PROJECT_DIR$/out/artifacts/ProyectoRA3_jar/ProyectoRA3.jar" />
       <envs />
       <method />
     </configuration>
@@ -535,14 +409,16 @@
       <envs />
       <method />
     </configuration>
-    <list size="2">
+    <list size="3">
       <item index="0" class="java.lang.String" itemvalue="Application.Ventana" />
       <item index="1" class="java.lang.String" itemvalue="JAR Application.ProyectoRA2.jar" />
+      <item index="2" class="java.lang.String" itemvalue="JAR Application.ProyectoRA3.jar" />
     </list>
     <recent_temporary>
-      <list size="2">
-        <item index="0" class="java.lang.String" itemvalue="Application.Ventana" />
-        <item index="1" class="java.lang.String" itemvalue="JAR Application.ProyectoRA2.jar" />
+      <list size="3">
+        <item index="0" class="java.lang.String" itemvalue="JAR Application.ProyectoRA3.jar" />
+        <item index="1" class="java.lang.String" itemvalue="Application.Ventana" />
+        <item index="2" class="java.lang.String" itemvalue="JAR Application.ProyectoRA2.jar" />
       </list>
     </recent_temporary>
     <configuration name="&lt;template&gt;" type="TestNG" default="true" selected="false">
@@ -557,58 +433,61 @@
   </component>
   <component name="ShelveChangesManager" show_recycled="false" />
   <component name="ToolWindowManager">
-    <frame x="-1" y="0" width="1368" height="744" extended-state="6" />
+    <frame x="0" y="0" width="1366" height="743" extended-state="0" />
     <editor active="false" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3271028" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32956383" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3602585" sideWeight="0.5060423" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.5541195" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Persistence" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32956383" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Persistence" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25151056" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17776097" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3290469" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.37383178" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32866043" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.37383178" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3263328" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3279483" sideWeight="0.4939577" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3279483" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32866043" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
-      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.13395639" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.47980613" sideWeight="0.5030211" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.14568081" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32917318" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.37383178" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3263328" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.47980613" sideWeight="0.49697885" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Persistence" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.20996979" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3279483" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="true" content_ui="tabs" />
     </layout-to-restore>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -625,129 +504,33 @@
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
+        <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/com/raider/principal/controller/Projectcontroller.java</url>
-          <line>10</line>
-          <properties />
-          <option name="timeStamp" value="20" />
+          <line>1082</line>
+          <properties class="com.raider.principal.controller.Projectcontroller" method="controlBuscarCuartel" />
+          <option name="timeStamp" value="30" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="25" />
+      <option name="time" value="31" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/com/raider/principal/Gui/Ventana.java">
+    <entry file="file://$PROJECT_DIR$/src/com/raider/principal/base/Vehiculo.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="78" column="3" selection-start-line="78" selection-start-column="3" selection-end-line="83" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/raider/principal/util/Values.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="15" column="80" selection-start-line="15" selection-start-column="32" selection-end-line="15" selection-end-column="80" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/raider/principal/util/Values.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="15" column="105" selection-start-line="15" selection-start-column="105" selection-end-line="15" selection-end-column="105" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/raider/principal/Gui/Ventana.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="55" column="41" selection-start-line="55" selection-start-column="41" selection-end-line="55" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/raider/principal/util/Values.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="7" column="11" selection-start-line="7" selection-start-column="11" selection-end-line="7" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/raider/principal/model/Projectmodel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <caret line="101" column="28" selection-start-line="101" selection-start-column="28" selection-end-line="101" selection-end-column="28" />
           <folding>
-            <marker date="1449695703968" expanded="true" signature="5429:5526" placeholder="SELECT usuar..usuarios..." />
-            <marker date="1449695703968" expanded="true" signature="5573:5676" placeholder="SELECT usuar..usuarios..." />
-            <marker date="1449695703968" expanded="true" signature="7220:7345" placeholder="INSERT INTO ..." />
-            <marker date="1449695703968" expanded="true" signature="9798:9929" placeholder="INSERT INTO ..." />
-            <marker date="1449695703968" expanded="true" signature="11963:12135" placeholder="INSERT INTO ..." />
-            <marker date="1449695703968" expanded="true" signature="13332:13364" placeholder="DELETE FROM ..." />
-            <marker date="1449695703968" expanded="true" signature="14049:14080" placeholder="DELETE FROM ..." />
-            <marker date="1449695703968" expanded="true" signature="14767:14799" placeholder="DELETE FROM ..." />
-            <marker date="1449695703968" expanded="true" signature="15646:15778" placeholder="UPDATE cuart..." />
-            <marker date="1449695703968" expanded="true" signature="16957:17095" placeholder="UPDATE unida..." />
-            <marker date="1449695703968" expanded="true" signature="18531:18687" placeholder="UPDATE solda..." />
-            <marker date="1449695703968" expanded="true" signature="19857:19921" placeholder="SELECT missi..missingValue..." />
-            <marker date="1449695703968" expanded="true" signature="20398:20445" placeholder="SELECT missi..missingValue..." />
-            <marker date="1449695703968" expanded="true" signature="21071:21116" placeholder="SELECT nombr..cuartel..." />
-            <marker date="1449695703968" expanded="true" signature="21912:21946" placeholder="SELECT nombr..cuartel..." />
-            <marker date="1449695703968" expanded="true" signature="22550:22582" placeholder="SELECT nombr..unidad..." />
-            <marker date="1449695703968" expanded="true" signature="23343:23364" placeholder="SELECT * FRO..cuartel..." />
-            <marker date="1449695703968" expanded="true" signature="24505:24519" placeholder="SELECT * FRO..cuartel..." />
-            <marker date="1449695703968" expanded="true" signature="24505:24525" placeholder="SELECT * FRO..unidad..." />
-            <marker date="1449695703968" expanded="true" signature="25795:25809" placeholder="SELECT * FRO..unidad..." />
-            <marker date="1449695703968" expanded="true" signature="25795:25816" placeholder="SELECT * FRO..soldado..." />
-            <marker date="1449695703968" expanded="true" signature="27336:27370" placeholder="SELECT * FRO..cuartel..." />
-            <marker date="1449695703968" expanded="true" signature="28285:28318" placeholder="SELECT * FRO..cuartel..." />
-            <marker date="1449695703968" expanded="true" signature="29293:29327" placeholder="SELECT * FRO..unidad..." />
-            <marker date="1449695703968" expanded="true" signature="30434:30501" placeholder="SELECT * FRO..cuartel..." />
-            <marker date="1449695703968" expanded="true" signature="31882:31923" placeholder="SELECT * FRO..unidad..." />
-            <marker date="1449695703968" expanded="true" signature="33112:33178" placeholder="SELECT * FRO..unidad..." />
-            <marker date="1449695703968" expanded="true" signature="34636:34676" placeholder="SELECT * FRO..soldado..." />
-            <marker date="1449695703968" expanded="true" signature="34636:34677" placeholder="SELECT * FRO..soldado..." />
-            <marker date="1449695703968" expanded="true" signature="36182:36223" placeholder="SELECT * FRO..soldado..." />
-            <marker date="1449695703968" expanded="true" signature="37603:37670" placeholder="SELECT * FRO..soldado..." />
-            <marker date="1449695703968" expanded="true" signature="39084:39153" placeholder="SELECT id FR..unidad..." />
-            <marker date="1449695703968" expanded="true" signature="39752:39819" placeholder="SELECT * FRO..soldado..." />
-            <marker date="1449695703968" expanded="true" signature="40475:40544" placeholder="SELECT id FR..unidad..." />
-            <marker date="1449695703968" expanded="true" signature="40934:40976" placeholder="SELECT id FR..unidad..." />
-            <marker date="1449695703968" expanded="true" signature="41568:41604" placeholder="SELECT uso F..cuartel..." />
-            <marker date="1449695703968" expanded="true" signature="42078:42126" placeholder="SELECT uso F..cuartel..." />
-            <marker date="1449695703968" expanded="true" signature="42614:42660" placeholder="SELECT uso F..cuartel..." />
-            <marker date="1449695703968" expanded="true" signature="43133:43168" placeholder="SELECT uso F..unidad..." />
-            <marker date="1449695703968" expanded="true" signature="43628:43664" placeholder="SELECT uso F..unidad..." />
-            <marker date="1449695703968" expanded="true" signature="44149:44178" placeholder="SELECT uso F..soldado..." />
-            <marker date="1449695703968" expanded="true" signature="44149:44179" placeholder="SELECT uso F..soldado..." />
-            <marker date="1449695703968" expanded="true" signature="44149:44200" placeholder="SELECT uso F..soldado..." />
-            <marker date="1449695703968" expanded="true" signature="44149:44207" placeholder="SELECT uso F..soldado..." />
-            <marker date="1449695703968" expanded="true" signature="44718:44757" placeholder="UPDATE cuart..." />
-            <marker date="1449695703968" expanded="true" signature="45162:45213" placeholder="UPDATE cuart..." />
-            <marker date="1449695703968" expanded="true" signature="45617:45655" placeholder="UPDATE unida..." />
-            <marker date="1449695703968" expanded="true" signature="46058:46107" placeholder="UPDATE unida..." />
-            <marker date="1449695703968" expanded="true" signature="46511:46550" placeholder="UPDATE cuart..." />
-            <marker date="1449695703968" expanded="true" signature="46965:47008" placeholder="UPDATE solda..." />
-            <marker date="1449695703968" expanded="true" signature="46965:47026" placeholder="UPDATE solda..." />
-            <marker date="1449695703968" expanded="true" signature="47469:47490" placeholder="SELECT nombr..cuartel..." />
-            <marker date="1449695703968" expanded="true" signature="47516:47536" placeholder="SELECT * FRO..unidad..." />
-            <marker date="1449695703968" expanded="true" signature="47562:47576" placeholder="SELECT * FRO..cuartel..." />
-            <marker date="1449695703968" expanded="true" signature="47562:47583" placeholder="SELECT * FRO..soldado..." />
+            <element signature="e#2001#2002#0" expanded="true" />
+            <element signature="e#2051#2052#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/raider/principal/Gui/Ventana.form">
-      <provider selected="true" editor-type-id="ui-designer">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/raider/principal/controller/Projectcontroller.java">
+    <entry file="file://$PROJECT_DIR$/src/com/raider/principal/base/Soldado.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+          <caret line="100" column="0" selection-start-line="100" selection-start-column="0" selection-end-line="100" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -769,63 +552,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <marker date="1449695703968" expanded="true" signature="5429:5526" placeholder="SELECT usuar..usuarios..." />
-            <marker date="1449695703968" expanded="true" signature="5573:5676" placeholder="SELECT usuar..usuarios..." />
-            <marker date="1449695703968" expanded="true" signature="7220:7345" placeholder="INSERT INTO ..." />
-            <marker date="1449695703968" expanded="true" signature="9798:9929" placeholder="INSERT INTO ..." />
-            <marker date="1449695703968" expanded="true" signature="11963:12135" placeholder="INSERT INTO ..." />
-            <marker date="1449695703968" expanded="true" signature="13332:13364" placeholder="DELETE FROM ..." />
-            <marker date="1449695703968" expanded="true" signature="14049:14080" placeholder="DELETE FROM ..." />
-            <marker date="1449695703968" expanded="true" signature="14767:14799" placeholder="DELETE FROM ..." />
-            <marker date="1449695703968" expanded="true" signature="15646:15778" placeholder="UPDATE cuart..." />
-            <marker date="1449695703968" expanded="true" signature="16957:17095" placeholder="UPDATE unida..." />
-            <marker date="1449695703968" expanded="true" signature="18531:18687" placeholder="UPDATE solda..." />
-            <marker date="1449695703968" expanded="true" signature="19857:19921" placeholder="SELECT missi..missingValue..." />
-            <marker date="1449695703968" expanded="true" signature="20398:20445" placeholder="SELECT missi..missingValue..." />
-            <marker date="1449695703968" expanded="true" signature="21071:21116" placeholder="SELECT nombr..cuartel..." />
-            <marker date="1449695703968" expanded="true" signature="21912:21946" placeholder="SELECT nombr..cuartel..." />
-            <marker date="1449695703968" expanded="true" signature="22550:22582" placeholder="SELECT nombr..unidad..." />
-            <marker date="1449695703968" expanded="true" signature="23343:23364" placeholder="SELECT * FRO..cuartel..." />
-            <marker date="1449695703968" expanded="true" signature="24505:24519" placeholder="SELECT * FRO..cuartel..." />
-            <marker date="1449695703968" expanded="true" signature="24505:24525" placeholder="SELECT * FRO..unidad..." />
-            <marker date="1449695703968" expanded="true" signature="25795:25809" placeholder="SELECT * FRO..unidad..." />
-            <marker date="1449695703968" expanded="true" signature="25795:25816" placeholder="SELECT * FRO..soldado..." />
-            <marker date="1449695703968" expanded="true" signature="27336:27370" placeholder="SELECT * FRO..cuartel..." />
-            <marker date="1449695703968" expanded="true" signature="28285:28318" placeholder="SELECT * FRO..cuartel..." />
-            <marker date="1449695703968" expanded="true" signature="29293:29327" placeholder="SELECT * FRO..unidad..." />
-            <marker date="1449695703968" expanded="true" signature="30434:30501" placeholder="SELECT * FRO..cuartel..." />
-            <marker date="1449695703968" expanded="true" signature="31882:31923" placeholder="SELECT * FRO..unidad..." />
-            <marker date="1449695703968" expanded="true" signature="33112:33178" placeholder="SELECT * FRO..unidad..." />
-            <marker date="1449695703968" expanded="true" signature="34636:34676" placeholder="SELECT * FRO..soldado..." />
-            <marker date="1449695703968" expanded="true" signature="34636:34677" placeholder="SELECT * FRO..soldado..." />
-            <marker date="1449695703968" expanded="true" signature="36182:36223" placeholder="SELECT * FRO..soldado..." />
-            <marker date="1449695703968" expanded="true" signature="37603:37670" placeholder="SELECT * FRO..soldado..." />
-            <marker date="1449695703968" expanded="true" signature="39084:39153" placeholder="SELECT id FR..unidad..." />
-            <marker date="1449695703968" expanded="true" signature="39752:39819" placeholder="SELECT * FRO..soldado..." />
-            <marker date="1449695703968" expanded="true" signature="40475:40544" placeholder="SELECT id FR..unidad..." />
-            <marker date="1449695703968" expanded="true" signature="40934:40976" placeholder="SELECT id FR..unidad..." />
-            <marker date="1449695703968" expanded="true" signature="41568:41604" placeholder="SELECT uso F..cuartel..." />
-            <marker date="1449695703968" expanded="true" signature="42078:42126" placeholder="SELECT uso F..cuartel..." />
-            <marker date="1449695703968" expanded="true" signature="42614:42660" placeholder="SELECT uso F..cuartel..." />
-            <marker date="1449695703968" expanded="true" signature="43133:43168" placeholder="SELECT uso F..unidad..." />
-            <marker date="1449695703968" expanded="true" signature="43628:43664" placeholder="SELECT uso F..unidad..." />
-            <marker date="1449695703968" expanded="true" signature="44149:44178" placeholder="SELECT uso F..soldado..." />
-            <marker date="1449695703968" expanded="true" signature="44149:44179" placeholder="SELECT uso F..soldado..." />
-            <marker date="1449695703968" expanded="true" signature="44149:44200" placeholder="SELECT uso F..soldado..." />
-            <marker date="1449695703968" expanded="true" signature="44149:44207" placeholder="SELECT uso F..soldado..." />
-            <marker date="1449695703968" expanded="true" signature="44718:44757" placeholder="UPDATE cuart..." />
-            <marker date="1449695703968" expanded="true" signature="45162:45213" placeholder="UPDATE cuart..." />
-            <marker date="1449695703968" expanded="true" signature="45617:45655" placeholder="UPDATE unida..." />
-            <marker date="1449695703968" expanded="true" signature="46058:46107" placeholder="UPDATE unida..." />
-            <marker date="1449695703968" expanded="true" signature="46511:46550" placeholder="UPDATE cuart..." />
-            <marker date="1449695703968" expanded="true" signature="46965:47008" placeholder="UPDATE solda..." />
-            <marker date="1449695703968" expanded="true" signature="46965:47026" placeholder="UPDATE solda..." />
-            <marker date="1449695703968" expanded="true" signature="47469:47490" placeholder="SELECT nombr..cuartel..." />
-            <marker date="1449695703968" expanded="true" signature="47516:47536" placeholder="SELECT * FRO..unidad..." />
-            <marker date="1449695703968" expanded="true" signature="47562:47576" placeholder="SELECT * FRO..cuartel..." />
-            <marker date="1449695703968" expanded="true" signature="47562:47583" placeholder="SELECT * FRO..soldado..." />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -864,63 +590,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="13" column="0" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
-          <folding>
-            <marker date="1449695703968" expanded="true" signature="5429:5526" placeholder="SELECT usuar..usuarios..." />
-            <marker date="1449695703968" expanded="true" signature="5573:5676" placeholder="SELECT usuar..usuarios..." />
-            <marker date="1449695703968" expanded="true" signature="7220:7345" placeholder="INSERT INTO ..." />
-            <marker date="1449695703968" expanded="true" signature="9798:9929" placeholder="INSERT INTO ..." />
-            <marker date="1449695703968" expanded="true" signature="11963:12135" placeholder="INSERT INTO ..." />
-            <marker date="1449695703968" expanded="true" signature="13332:13364" placeholder="DELETE FROM ..." />
-            <marker date="1449695703968" expanded="true" signature="14049:14080" placeholder="DELETE FROM ..." />
-            <marker date="1449695703968" expanded="true" signature="14767:14799" placeholder="DELETE FROM ..." />
-            <marker date="1449695703968" expanded="true" signature="15646:15778" placeholder="UPDATE cuart..." />
-            <marker date="1449695703968" expanded="true" signature="16957:17095" placeholder="UPDATE unida..." />
-            <marker date="1449695703968" expanded="true" signature="18531:18687" placeholder="UPDATE solda..." />
-            <marker date="1449695703968" expanded="true" signature="19857:19921" placeholder="SELECT missi..missingValue..." />
-            <marker date="1449695703968" expanded="true" signature="20398:20445" placeholder="SELECT missi..missingValue..." />
-            <marker date="1449695703968" expanded="true" signature="21071:21116" placeholder="SELECT nombr..cuartel..." />
-            <marker date="1449695703968" expanded="true" signature="21912:21946" placeholder="SELECT nombr..cuartel..." />
-            <marker date="1449695703968" expanded="true" signature="22550:22582" placeholder="SELECT nombr..unidad..." />
-            <marker date="1449695703968" expanded="true" signature="23343:23364" placeholder="SELECT * FRO..cuartel..." />
-            <marker date="1449695703968" expanded="true" signature="24505:24519" placeholder="SELECT * FRO..cuartel..." />
-            <marker date="1449695703968" expanded="true" signature="24505:24525" placeholder="SELECT * FRO..unidad..." />
-            <marker date="1449695703968" expanded="true" signature="25795:25809" placeholder="SELECT * FRO..unidad..." />
-            <marker date="1449695703968" expanded="true" signature="25795:25816" placeholder="SELECT * FRO..soldado..." />
-            <marker date="1449695703968" expanded="true" signature="27336:27370" placeholder="SELECT * FRO..cuartel..." />
-            <marker date="1449695703968" expanded="true" signature="28285:28318" placeholder="SELECT * FRO..cuartel..." />
-            <marker date="1449695703968" expanded="true" signature="29293:29327" placeholder="SELECT * FRO..unidad..." />
-            <marker date="1449695703968" expanded="true" signature="30434:30501" placeholder="SELECT * FRO..cuartel..." />
-            <marker date="1449695703968" expanded="true" signature="31882:31923" placeholder="SELECT * FRO..unidad..." />
-            <marker date="1449695703968" expanded="true" signature="33112:33178" placeholder="SELECT * FRO..unidad..." />
-            <marker date="1449695703968" expanded="true" signature="34636:34676" placeholder="SELECT * FRO..soldado..." />
-            <marker date="1449695703968" expanded="true" signature="34636:34677" placeholder="SELECT * FRO..soldado..." />
-            <marker date="1449695703968" expanded="true" signature="36182:36223" placeholder="SELECT * FRO..soldado..." />
-            <marker date="1449695703968" expanded="true" signature="37603:37670" placeholder="SELECT * FRO..soldado..." />
-            <marker date="1449695703968" expanded="true" signature="39084:39153" placeholder="SELECT id FR..unidad..." />
-            <marker date="1449695703968" expanded="true" signature="39752:39819" placeholder="SELECT * FRO..soldado..." />
-            <marker date="1449695703968" expanded="true" signature="40475:40544" placeholder="SELECT id FR..unidad..." />
-            <marker date="1449695703968" expanded="true" signature="40934:40976" placeholder="SELECT id FR..unidad..." />
-            <marker date="1449695703968" expanded="true" signature="41568:41604" placeholder="SELECT uso F..cuartel..." />
-            <marker date="1449695703968" expanded="true" signature="42078:42126" placeholder="SELECT uso F..cuartel..." />
-            <marker date="1449695703968" expanded="true" signature="42614:42660" placeholder="SELECT uso F..cuartel..." />
-            <marker date="1449695703968" expanded="true" signature="43133:43168" placeholder="SELECT uso F..unidad..." />
-            <marker date="1449695703968" expanded="true" signature="43628:43664" placeholder="SELECT uso F..unidad..." />
-            <marker date="1449695703968" expanded="true" signature="44149:44178" placeholder="SELECT uso F..soldado..." />
-            <marker date="1449695703968" expanded="true" signature="44149:44179" placeholder="SELECT uso F..soldado..." />
-            <marker date="1449695703968" expanded="true" signature="44149:44200" placeholder="SELECT uso F..soldado..." />
-            <marker date="1449695703968" expanded="true" signature="44149:44207" placeholder="SELECT uso F..soldado..." />
-            <marker date="1449695703968" expanded="true" signature="44718:44757" placeholder="UPDATE cuart..." />
-            <marker date="1449695703968" expanded="true" signature="45162:45213" placeholder="UPDATE cuart..." />
-            <marker date="1449695703968" expanded="true" signature="45617:45655" placeholder="UPDATE unida..." />
-            <marker date="1449695703968" expanded="true" signature="46058:46107" placeholder="UPDATE unida..." />
-            <marker date="1449695703968" expanded="true" signature="46511:46550" placeholder="UPDATE cuart..." />
-            <marker date="1449695703968" expanded="true" signature="46965:47008" placeholder="UPDATE solda..." />
-            <marker date="1449695703968" expanded="true" signature="46965:47026" placeholder="UPDATE solda..." />
-            <marker date="1449695703968" expanded="true" signature="47469:47490" placeholder="SELECT nombr..cuartel..." />
-            <marker date="1449695703968" expanded="true" signature="47516:47536" placeholder="SELECT * FRO..unidad..." />
-            <marker date="1449695703968" expanded="true" signature="47562:47576" placeholder="SELECT * FRO..cuartel..." />
-            <marker date="1449695703968" expanded="true" signature="47562:47583" placeholder="SELECT * FRO..soldado..." />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1026,63 +695,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/raider/principal/base/Cuartel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/raider/principal/base/Unidad.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="56" column="0" selection-start-line="56" selection-start-column="0" selection-end-line="56" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/raider/principal/base/Soldado.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="57" column="0" selection-start-line="57" selection-start-column="0" selection-end-line="57" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/raider/principal/Gui/Login.form">
       <provider selected="true" editor-type-id="ui-designer">
         <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/raider/principal/procesos/Listado.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="23" column="51" selection-start-line="23" selection-start-column="12" selection-end-line="23" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/raider/principal/util/Values.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="19" column="51" selection-start-line="19" selection-start-column="51" selection-end-line="19" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/raider/principal/Gui/Ventana.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="63" column="0" selection-start-line="63" selection-start-column="0" selection-end-line="63" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/raider/principal/Gui/Preferencias.form">
-      <provider selected="true" editor-type-id="ui-designer">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/raider/principal/procesos/ComprobacionClaveSeguridad.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="31" column="48" selection-start-line="31" selection-start-column="48" selection-end-line="31" selection-end-column="48" />
-        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/raider/principal/Gui/Login.java">
@@ -1106,104 +721,123 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/raider/principal/Gui/Ventana.form">
-      <provider editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.27522936">
-          <caret line="4" column="2" selection-start-line="4" selection-start-column="2" selection-end-line="4" selection-end-column="2" />
-        </state>
-      </provider>
-      <provider selected="true" editor-type-id="ui-designer">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/raider/principal/controller/Projectcontroller.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="251" column="6" selection-start-line="251" selection-start-column="6" selection-end-line="251" selection-end-column="6" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/raider/principal/Gui/Preferencias.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="40" column="20" selection-start-line="40" selection-start-column="20" selection-end-line="40" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/raider/principal/model/Projectmodel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="1414" column="55" selection-start-line="1414" selection-start-column="55" selection-end-line="1414" selection-end-column="55" />
-          <folding>
-            <marker date="1449695703968" expanded="true" signature="5429:5526" placeholder="SELECT usuar..usuarios..." />
-            <marker date="1449695703968" expanded="true" signature="5573:5676" placeholder="SELECT usuar..usuarios..." />
-            <marker date="1449695703968" expanded="true" signature="7220:7345" placeholder="INSERT INTO ..." />
-            <marker date="1449695703968" expanded="true" signature="9798:9929" placeholder="INSERT INTO ..." />
-            <marker date="1449695703968" expanded="true" signature="11963:12135" placeholder="INSERT INTO ..." />
-            <marker date="1449695703968" expanded="true" signature="13332:13364" placeholder="DELETE FROM ..." />
-            <marker date="1449695703968" expanded="true" signature="14049:14080" placeholder="DELETE FROM ..." />
-            <marker date="1449695703968" expanded="true" signature="14767:14799" placeholder="DELETE FROM ..." />
-            <marker date="1449695703968" expanded="true" signature="15646:15778" placeholder="UPDATE cuart..." />
-            <marker date="1449695703968" expanded="true" signature="16957:17095" placeholder="UPDATE unida..." />
-            <marker date="1449695703968" expanded="true" signature="18531:18687" placeholder="UPDATE solda..." />
-            <marker date="1449695703968" expanded="true" signature="19857:19921" placeholder="SELECT missi..missingValue..." />
-            <marker date="1449695703968" expanded="true" signature="20398:20445" placeholder="SELECT missi..missingValue..." />
-            <marker date="1449695703968" expanded="true" signature="21071:21116" placeholder="SELECT nombr..cuartel..." />
-            <marker date="1449695703968" expanded="true" signature="21912:21946" placeholder="SELECT nombr..cuartel..." />
-            <marker date="1449695703968" expanded="true" signature="22550:22582" placeholder="SELECT nombr..unidad..." />
-            <marker date="1449695703968" expanded="true" signature="23343:23364" placeholder="SELECT * FRO..cuartel..." />
-            <marker date="1449695703968" expanded="true" signature="24505:24519" placeholder="SELECT * FRO..cuartel..." />
-            <marker date="1449695703968" expanded="true" signature="24505:24525" placeholder="SELECT * FRO..unidad..." />
-            <marker date="1449695703968" expanded="true" signature="25795:25809" placeholder="SELECT * FRO..unidad..." />
-            <marker date="1449695703968" expanded="true" signature="25795:25816" placeholder="SELECT * FRO..soldado..." />
-            <marker date="1449695703968" expanded="true" signature="27336:27370" placeholder="SELECT * FRO..cuartel..." />
-            <marker date="1449695703968" expanded="true" signature="28285:28318" placeholder="SELECT * FRO..cuartel..." />
-            <marker date="1449695703968" expanded="true" signature="29293:29327" placeholder="SELECT * FRO..unidad..." />
-            <marker date="1449695703968" expanded="true" signature="30434:30501" placeholder="SELECT * FRO..cuartel..." />
-            <marker date="1449695703968" expanded="true" signature="31882:31923" placeholder="SELECT * FRO..unidad..." />
-            <marker date="1449695703968" expanded="true" signature="33112:33178" placeholder="SELECT * FRO..unidad..." />
-            <marker date="1449695703968" expanded="true" signature="34636:34676" placeholder="SELECT * FRO..soldado..." />
-            <marker date="1449695703968" expanded="true" signature="34636:34677" placeholder="SELECT * FRO..soldado..." />
-            <marker date="1449695703968" expanded="true" signature="36182:36223" placeholder="SELECT * FRO..soldado..." />
-            <marker date="1449695703968" expanded="true" signature="37603:37670" placeholder="SELECT * FRO..soldado..." />
-            <marker date="1449695703968" expanded="true" signature="39084:39153" placeholder="SELECT id FR..unidad..." />
-            <marker date="1449695703968" expanded="true" signature="39752:39819" placeholder="SELECT * FRO..soldado..." />
-            <marker date="1449695703968" expanded="true" signature="40475:40544" placeholder="SELECT id FR..unidad..." />
-            <marker date="1449695703968" expanded="true" signature="40934:40976" placeholder="SELECT id FR..unidad..." />
-            <marker date="1449695703968" expanded="true" signature="41568:41604" placeholder="SELECT uso F..cuartel..." />
-            <marker date="1449695703968" expanded="true" signature="42078:42126" placeholder="SELECT uso F..cuartel..." />
-            <marker date="1449695703968" expanded="true" signature="42614:42660" placeholder="SELECT uso F..cuartel..." />
-            <marker date="1449695703968" expanded="true" signature="43133:43168" placeholder="SELECT uso F..unidad..." />
-            <marker date="1449695703968" expanded="true" signature="43628:43664" placeholder="SELECT uso F..unidad..." />
-            <marker date="1449695703968" expanded="true" signature="44149:44178" placeholder="SELECT uso F..soldado..." />
-            <marker date="1449695703968" expanded="true" signature="44149:44179" placeholder="SELECT uso F..soldado..." />
-            <marker date="1449695703968" expanded="true" signature="44149:44200" placeholder="SELECT uso F..soldado..." />
-            <marker date="1449695703968" expanded="true" signature="44149:44207" placeholder="SELECT uso F..soldado..." />
-            <marker date="1449695703968" expanded="true" signature="44718:44757" placeholder="UPDATE cuart..." />
-            <marker date="1449695703968" expanded="true" signature="45162:45213" placeholder="UPDATE cuart..." />
-            <marker date="1449695703968" expanded="true" signature="45617:45655" placeholder="UPDATE unida..." />
-            <marker date="1449695703968" expanded="true" signature="46058:46107" placeholder="UPDATE unida..." />
-            <marker date="1449695703968" expanded="true" signature="46511:46550" placeholder="UPDATE cuart..." />
-            <marker date="1449695703968" expanded="true" signature="46965:47008" placeholder="UPDATE solda..." />
-            <marker date="1449695703968" expanded="true" signature="46965:47026" placeholder="UPDATE solda..." />
-            <marker date="1449695703968" expanded="true" signature="47469:47490" placeholder="SELECT nombr..cuartel..." />
-            <marker date="1449695703968" expanded="true" signature="47516:47536" placeholder="SELECT * FRO..unidad..." />
-            <marker date="1449695703968" expanded="true" signature="47562:47576" placeholder="SELECT * FRO..cuartel..." />
-            <marker date="1449695703968" expanded="true" signature="47562:47583" placeholder="SELECT * FRO..soldado..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/raider/principal/util/HibenateUtil.java">
+    <entry file="file://$PROJECT_DIR$/src/com/raider/principal/util/HibernateUtil.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="23" column="51" selection-start-line="23" selection-start-column="51" selection-end-line="23" selection-end-column="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/src/libs/hibernate-core-4.1.4.Final.jar!/org/hibernate/Query.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.1590106">
+          <caret line="27" column="17" selection-start-line="27" selection-start-column="17" selection-end-line="27" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/raider/principal/util/Values.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.4258675">
+          <caret line="18" column="32" selection-start-line="18" selection-start-column="32" selection-end-line="18" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/raider/principal/procesos/Listado.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="1.8305085">
+          <caret line="56" column="44" selection-start-line="56" selection-start-column="44" selection-end-line="56" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///usr/lib/jvm/java-8-oracle/src.zip!/java/awt/WaitDispatchSupport.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-2.2939188">
+          <caret line="226" column="0" selection-start-line="226" selection-start-column="0" selection-end-line="226" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/raider/principal/Gui/ArmasView.form">
+      <provider selected="true" editor-type-id="ui-designer">
+        <state />
+      </provider>
+      <provider editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/raider/principal/Gui/VehiculosView.form">
+      <provider selected="true" editor-type-id="ui-designer">
+        <state />
+      </provider>
+      <provider editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/raider/principal/base/Usuario.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.9763514">
+          <caret line="8" column="9" selection-start-line="8" selection-start-column="9" selection-end-line="8" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/raider/principal/Gui/UnidadView.form">
+      <provider editor-type-id="ui-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/raider/principal/Gui/Ventana.form">
+      <provider selected="true" editor-type-id="ui-designer">
+        <state />
+      </provider>
+      <provider editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/raider/principal/Gui/ArmasView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="52" column="21" selection-start-line="52" selection-start-column="21" selection-end-line="52" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/raider/principal/Gui/VehiculosView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.4201031">
+          <caret line="70" column="34" selection-start-line="70" selection-start-column="34" selection-end-line="70" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/raider/principal/Gui/UnidadView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="79" column="39" selection-start-line="79" selection-start-column="39" selection-end-line="79" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/raider/principal/Gui/Ventana.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.2652027">
+          <caret line="105" column="0" selection-start-line="105" selection-start-column="0" selection-end-line="119" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/raider/principal/base/Vehiculo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="101" column="28" selection-start-line="101" selection-start-column="28" selection-end-line="101" selection-end-column="28" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="e#2001#2002#0" expanded="true" />
+            <element signature="e#2051#2052#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1211,23 +845,63 @@
     <entry file="file://$PROJECT_DIR$/src/com/raider/principal/base/Arma.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="5" column="17" selection-start-line="5" selection-start-column="17" selection-end-line="5" selection-end-column="17" />
-          <folding />
+          <caret line="42" column="5" selection-start-line="42" selection-start-column="5" selection-end-line="42" selection-end-column="5" />
+          <folding>
+            <element signature="e#848#849#0" expanded="true" />
+            <element signature="e#873#874#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/raider/principal/base/Vehiculo.java">
+    <entry file="file://$PROJECT_DIR$/src/com/raider/principal/base/Cuartel.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="5" column="21" selection-start-line="5" selection-start-column="21" selection-end-line="5" selection-end-column="21" />
+          <caret line="13" column="13" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/raider/principal/hibernate.cfq.tld">
+    <entry file="file://$PROJECT_DIR$/src/com/raider/principal/base/Soldado.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4814189">
-          <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="47" column="0" selection-start-line="47" selection-start-column="0" selection-end-line="47" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/raider/principal/controller/Projectcontroller.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="133" column="21" selection-start-line="133" selection-start-column="21" selection-end-line="133" selection-end-column="21" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/raider/principal/base/Unidad.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="133" column="0" selection-start-line="133" selection-start-column="0" selection-end-line="133" selection-end-column="0" />
+          <folding>
+            <element signature="e#2929#2930#0" expanded="true" />
+            <element signature="e#2966#2967#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/hibernate.cfg.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.20304568">
+          <caret line="8" column="55" selection-start-line="8" selection-start-column="55" selection-end-line="8" selection-end-column="55" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/raider/principal/model/Projectmodel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.37942666">
+          <caret line="90" column="32" selection-start-line="90" selection-start-column="32" selection-end-line="90" selection-end-column="32" />
           <folding />
         </state>
       </provider>
@@ -1238,7 +912,7 @@
       <state key="ArtifactsStructureConfigurable.UI">
         <settings>
           <artifact-editor />
-          <last-edited>ProyectoRA2:jar</last-edited>
+          <last-edited>ProyectoRA3:jar</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
@@ -1286,7 +960,7 @@
       </state>
       <state key="ModuleStructureConfigurable.UI">
         <settings>
-          <last-edited>ProyectoRA2</last-edited>
+          <last-edited>ProyectoRA3</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>

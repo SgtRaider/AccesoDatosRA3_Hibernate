@@ -1,21 +1,64 @@
 package com.raider.principal.base;
 
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by raider on 5/11/15.
  */
+@Entity
+@Table(name="soldado")
 public class Soldado implements Serializable {
 
     private static final long serialVersionUID = 112325123L;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="id")
+    private int id;
+
+    @Column(name="nombre")
     private String nombre;
+
+    @Column(name="apellidos")
     private String apellidos;
+
+    @Column(name="fecha_nacimiento")
     private Date fechaNacimiento;
+
+    @Column(name="rango")
     private String rango;
+
+    @Column(name="lugar_nacimiento")
     private String lugarNacimiento;
-    private String Unidad;
+
+    @ManyToOne
+    @JoinColumn(name = "id_unidad")
+    private Unidad unidad;
+
+    @ManyToMany(cascade = CascadeType.DETACH)
+    @JoinTable(name = "arma_soldado", joinColumns = {@JoinColumn(name = "id_soldado")}, inverseJoinColumns = {@JoinColumn(name = "id_arma")})
+    private List<Arma> armas;
+
+    public Soldado() {
+        this.armas = new ArrayList<>();
+
+    }
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getNombre() {
         return nombre;
@@ -57,12 +100,20 @@ public class Soldado implements Serializable {
         this.lugarNacimiento = lugarNacimiento;
     }
 
-    public String getUnidad() {
-        return Unidad;
+    public Unidad getUnidad() {
+        return unidad;
     }
 
-    public void setUnidad(String unidad) {
-        Unidad = unidad;
+    public void setUnidad(Unidad unidad) {
+        this.unidad = unidad;
+    }
+
+    public List<Arma> getArmas() {
+        return armas;
+    }
+
+    public void setArmas(List<Arma> armas) {
+        this.armas = armas;
     }
 
     @Override

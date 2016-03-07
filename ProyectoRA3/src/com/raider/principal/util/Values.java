@@ -15,6 +15,8 @@ public class Values {
     public static int idCuartel;
     public static int idUnidad;
     public static int idSoldado;
+    public static int idArma;
+    public static int idVehiculo;
     public static String driver = "com.mysql.jdbc.Driver";
     public static boolean warningBaseDatos = false;
     public static String claveSeguridad = "20111956";

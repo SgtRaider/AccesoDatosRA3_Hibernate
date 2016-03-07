@@ -1,15 +1,14 @@
 package com.raider.principal.controller;
 
-import com.raider.principal.Gui.Login;
-import com.raider.principal.Gui.Preferencias;
-import com.raider.principal.Gui.Ventana;
+import com.raider.principal.Gui.*;
+import com.raider.principal.base.*;
+import com.raider.principal.base.Unidad;
+import com.raider.principal.util.HibernateUtil;
 import com.raider.principal.util.Values;
 import com.raider.principal.util.FolderFilter;
 import com.raider.principal.procesos.Listado;
+import org.hibernate.Hibernate;
 import raider.Util.Utilities;
-import com.raider.principal.base.Cuartel;
-import com.raider.principal.base.Soldado;
-import com.raider.principal.base.Unidad;
 import com.raider.principal.model.Projectmodel;
 import org.xml.sax.SAXException;
 
@@ -30,7 +29,6 @@ import java.awt.event.KeyListener;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Date;
-import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -46,15 +44,17 @@ public class Projectcontroller implements ListSelectionListener, ChangeListener,
 
     private Ventana v;
     private Projectmodel pm;
-    private Cuartel c;
-    private Unidad u;
-    private Soldado s;
+    private UnidadView uv;
+    private ArmasView av;
+    private VehiculosView vv;
 
     private DefaultTableModel defmodelcuartel;
     private DefaultTableModel defmodelunidad;
     private DefaultTableModel defmodelsoldado;
-
-    private Preferencias pref;
+    private DefaultTableModel defmodelarma;
+    private DefaultTableModel defmodelvehiculo;
+    private DefaultListModel<Vehiculo> vehiculoDefaultListModel;
+    private DefaultListModel<Unidad> unidadDefaultListModel;
     private Login log;
 
     public DateFormat format;
@@ -65,30 +65,27 @@ public class Projectcontroller implements ListSelectionListener, ChangeListener,
         this.v = ve;
         pm = new Projectmodel();
 
-        pref = new Preferencias();
-        pref.setVisible(false);
+        pm.conexion();
+        log = new Login();
+        log.setVisible(true);
+        rol(pm.login(log.getUsuario(), log.getContrasena()));
 
-        try {
-            pm.conexion();
-            log = new Login();
-            log.setVisible(true);
-            rol(pm.login(log.getUsuario(), log.getContrasena()));
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
         generarTablas();
+        generarListas();
         iniciarComboBox();
 
         format = new SimpleDateFormat("EEE MMM dd hh:mm:ss zzz yyyy");
-        DefaultTableModel defmodelcuartel;
-        DefaultTableModel defmodelunidad;
-        DefaultTableModel defmodelsoldado;
 
         v.tCuartel.setRowSelectionAllowed(true);
         v.tUnidad.setRowSelectionAllowed(true);
         v.tSoldado.setRowSelectionAllowed(true);
+        v.tVehiculo.setRowSelectionAllowed(true);
+        v.tArma.setRowSelectionAllowed(true);
+        v.tCuartel.setCellSelectionEnabled(false);
+        v.tUnidad.setCellSelectionEnabled(false);
+        v.tSoldado.setCellSelectionEnabled(false);
+        v.tVehiculo.setCellSelectionEnabled(false);
+        v.tArma.setCellSelectionEnabled(false);
 
         // Asignación de Listeners
 
@@ -102,6 +99,36 @@ public class Projectcontroller implements ListSelectionListener, ChangeListener,
         v.btEliminarcuartel.addActionListener(this);
         v.btEliminarsoldado.addActionListener(this);
         v.btEliminarunidad.addActionListener(this);
+        v.btUnidadUnidad.addActionListener(this);
+        v.btUnidadVehiculos.addActionListener(this);
+        v.btSoldadoArma.addActionListener(this);
+        v.btArmasGuardar.addActionListener(this);
+        v.btArmasModificar.addActionListener(this);
+        v.btArmasEliminar.addActionListener(this);
+        v.btVehiculosEliminar.addActionListener(this);
+        v.btVehiculosModificar.addActionListener(this);
+        v.btVehiculosGuardar.addActionListener(this);
+
+        v.btUnidadUnidad.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new UnidadView((Unidad) pm.cargar("unidad", Values.idUnidad), pm);
+            }
+        });
+
+        v.btUnidadVehiculos.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new VehiculosView((Unidad) pm.cargar("unidad", Values.idUnidad), pm);
+            }
+        });
+
+        v.btSoldadoArma.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new ArmasView((Soldado) pm.cargar("soldado", Values.idSoldado), pm);
+            }
+        });
 
         v.tCuartel.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
@@ -109,7 +136,7 @@ public class Projectcontroller implements ListSelectionListener, ChangeListener,
 
                 if (v.tCuartel.isRowSelected(v.tCuartel.getSelectedRow())) {
                     Values.idCuartel = Integer.valueOf(v.tCuartel.getValueAt(v.tCuartel.getSelectedRow(), 0).toString());
-                    cargarController(pm.cargarCuartelSeleccionado(Values.idCuartel));
+                    cargarController((Cuartel) pm.cargar("Cuartel", Values.idCuartel));
                 }
 
             }
@@ -121,7 +148,21 @@ public class Projectcontroller implements ListSelectionListener, ChangeListener,
 
                 if (v.tUnidad.isRowSelected(v.tUnidad.getSelectedRow())) {
                     Values.idUnidad = Integer.valueOf(v.tUnidad.getValueAt(v.tUnidad.getSelectedRow(), 0).toString());
-                    cargarController(pm.cargarUnidadSeleccionada(Values.idUnidad));
+                    Unidad unidad = (Unidad) pm.cargar("Unidad", Values.idUnidad);
+                    cargarController(unidad);
+                    //FIXED error hibernate al seleccionar unidad
+                    if (!unidad.getUnidadList().isEmpty()) {
+                        unidadDefaultListModel.removeAllElements();
+                        for (Unidad unidades : unidad.getUnidadList()) {
+                            unidadDefaultListModel.addElement(unidades);
+                        }
+                    }
+                    if (!unidad.getVehiculos().isEmpty()) {
+                        vehiculoDefaultListModel.removeAllElements();
+                        for (Vehiculo vehiculo : unidad.getVehiculos()) {
+                            vehiculoDefaultListModel.addElement(vehiculo);
+                        }
+                    }
                 }
 
             }
@@ -133,13 +174,36 @@ public class Projectcontroller implements ListSelectionListener, ChangeListener,
 
                 if (v.tSoldado.isRowSelected(v.tSoldado.getSelectedRow())) {
                     Values.idSoldado = Integer.valueOf(v.tSoldado.getValueAt(v.tSoldado.getSelectedRow(), 0).toString());
-                    cargarController(pm.cargarSoldadoSeleccionada(Values.idSoldado));
+                    cargarController((Soldado) pm.cargar("Soldado", Values.idSoldado));
                 }
 
             }
         });
 
-        v.miPreferencias.addActionListener(this);
+        v.tArma.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+
+                if (v.tArma.isRowSelected(v.tArma.getSelectedRow())) {
+                    Values.idArma = Integer.valueOf(v.tArma.getValueAt(v.tArma.getSelectedRow(), 0).toString());
+                    cargarController((Arma) pm.cargar("arma", Values.idArma));
+                }
+
+            }
+        });
+
+        v.tVehiculo.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+
+                if (v.tVehiculo.isRowSelected(v.tVehiculo.getSelectedRow())) {
+                    Values.idVehiculo= Integer.valueOf(v.tVehiculo.getValueAt(v.tVehiculo.getSelectedRow(), 0).toString());
+                    cargarController((Vehiculo) pm.cargar("vehiculo", Values.idVehiculo));
+                }
+
+            }
+        });
+
         v.miExportar.addActionListener(this);
         v.miImportar.addActionListener(this);
         v.miLogin.addActionListener(this);
@@ -147,6 +211,8 @@ public class Projectcontroller implements ListSelectionListener, ChangeListener,
         v.txtBusquedacuartel.addKeyListener(this);
         v.txtBusquedaunidad.addKeyListener(this);
         v.txtBusquedasoldado.addKeyListener(this);
+        v.txtArmaBuscar.addKeyListener(this);
+        v.txtVehiculoBusqueda.addKeyListener(this);
 
         listarCuartel();
         Listado proceso = new Listado(Projectcontroller.this, v);
@@ -180,6 +246,25 @@ public class Projectcontroller implements ListSelectionListener, ChangeListener,
 
     public void generarTablas() {
 
+        defmodelarma = new DefaultTableModel();
+        v.tArma.setModel(defmodelarma);
+        defmodelarma.addColumn("ID");
+        defmodelarma.addColumn("Nombre");
+        defmodelarma.addColumn("Cantidad Total");
+        defmodelarma.addColumn("Duracion Años");
+        defmodelarma.addColumn("Calibre");
+        defmodelarma.addColumn("Cantidad Municion");
+
+        defmodelvehiculo = new DefaultTableModel();
+        v.tVehiculo.setModel(defmodelvehiculo);
+
+        defmodelvehiculo.addColumn("ID");
+        defmodelvehiculo.addColumn("Nombre");
+        defmodelvehiculo.addColumn("Cantidad Total");
+        defmodelvehiculo.addColumn("Duracion Años");
+        defmodelvehiculo.addColumn("Años Uso");
+        defmodelvehiculo.addColumn("Kilómetros");
+
         defmodelcuartel = new DefaultTableModel();
         v.tCuartel.setModel(defmodelcuartel);
         defmodelcuartel.addColumn("ID");
@@ -198,7 +283,7 @@ public class Projectcontroller implements ListSelectionListener, ChangeListener,
         defmodelunidad = new DefaultTableModel();
         v.tUnidad.setModel(defmodelunidad);
         defmodelunidad.addColumn("ID");
-        defmodelunidad.addColumn("Nombre Unidad");
+        defmodelunidad.addColumn("Nombre UnidadView");
         defmodelunidad.addColumn("Tipo");
         defmodelunidad.addColumn("No Tropas");
         defmodelunidad.addColumn("Fecha Creacion");
@@ -218,16 +303,23 @@ public class Projectcontroller implements ListSelectionListener, ChangeListener,
         defmodelsoldado.addColumn("Rango");
         defmodelsoldado.addColumn("Fecha Nacimiento");
         defmodelsoldado.addColumn("Lugar Nacimiento");
-        defmodelsoldado.addColumn("Unidad");
+        defmodelsoldado.addColumn("UnidadView");
 
         TableColumnModel cs = v.tSoldado.getColumnModel();
         cs.getColumn(0).setPreferredWidth(15);
     }
 
+    private void generarListas() {
+        vehiculoDefaultListModel = new DefaultListModel<>();
+        unidadDefaultListModel = new DefaultListModel<>();
+        v.lVehiculos.setModel(vehiculoDefaultListModel);
+        v.lUnidades.setModel(unidadDefaultListModel);
+    }
+
     public void listarCuartel() {
 
         if (Values.warningBaseDatos == false) {
-            List<Object[]> list = pm.listar("cuartel");
+            List<Object[]> list = pm.listarGeneral("cuartel");
 
             if (list != null) {
 
@@ -243,7 +335,7 @@ public class Projectcontroller implements ListSelectionListener, ChangeListener,
     public void listarUnidad() {
 
         if (Values.warningBaseDatos == false) {
-            List<Object[]> list = pm.listar("unidad");
+            List<Object[]> list = pm.listarGeneral("unidad");
 
             if (list != null) {
                 defmodelunidad.setNumRows(0);
@@ -258,7 +350,7 @@ public class Projectcontroller implements ListSelectionListener, ChangeListener,
     public void listarSoldado() {
 
         if (Values.warningBaseDatos == false) {
-            List<Object[]> list = pm.listar("soldado");
+            List<Object[]> list = pm.listarGeneral("soldado");
 
             if (list != null) {
 
@@ -266,6 +358,38 @@ public class Projectcontroller implements ListSelectionListener, ChangeListener,
                 for (int i = 0; i < list.size(); i++) {
 
                     defmodelsoldado.addRow(list.get(i));
+                }
+            }
+        }
+    }
+
+    public void listarArma() {
+
+        if (Values.warningBaseDatos == false) {
+            List<Object[]> list = pm.listarGeneral("arma");
+
+            if (list != null) {
+
+                defmodelarma.setNumRows(0);
+                for (int i = 0; i < list.size(); i++) {
+
+                    defmodelarma.addRow(list.get(i));
+                }
+            }
+        }
+    }
+
+    public void listarVehiculo() {
+
+        if (Values.warningBaseDatos == false) {
+            List<Object[]> list = pm.listarGeneral("vehiculo");
+
+            if (list != null) {
+
+                defmodelvehiculo.setNumRows(0);
+                for (int i = 0; i < list.size(); i++) {
+
+                    defmodelvehiculo.addRow(list.get(i));
                 }
             }
         }
@@ -309,7 +433,6 @@ public class Projectcontroller implements ListSelectionListener, ChangeListener,
         v.cbTablaSoldado.setEnabled(false);
         v.miExportar.setEnabled(false);
         v.miImportar.setEnabled(false);
-        pref.setEditable(false);
     }
 
     public void visibilidadUsuario() {
@@ -350,7 +473,6 @@ public class Projectcontroller implements ListSelectionListener, ChangeListener,
         v.cbTablaSoldado.setEnabled(true);
         v.miExportar.setEnabled(false);
         v.miImportar.setEnabled(false);
-        pref.setEditable(false);
     }
 
     public void visibilidadTecnico() {
@@ -389,7 +511,6 @@ public class Projectcontroller implements ListSelectionListener, ChangeListener,
         v.cbTablaSoldado.setEnabled(true);
         v.miExportar.setEnabled(true);
         v.miImportar.setEnabled(false);
-        pref.setEditable(false);
     }
 
     public void visibilidadAdministrador() {
@@ -430,7 +551,7 @@ public class Projectcontroller implements ListSelectionListener, ChangeListener,
         v.miImportar.setEnabled(true);
         v.dcFechanacimiento.setEnabled(true);
         v.dcFechaUnidad.setEnabled(true);
-        pref.setEditable(true);
+
     }
 
     public void iniciarComboBox() {
@@ -486,6 +607,14 @@ public class Projectcontroller implements ListSelectionListener, ChangeListener,
         v.cbTablaSoldado.addItem("lugar_nacimiento");
         v.cbTablaSoldado.addItem("unidad");
         v.cbTablaSoldado.addItem("cuartel");
+
+        v.cbArmaBusqueda.addItem("nombre");
+        v.cbArmaBusqueda.addItem("calibre");
+        v.cbArmaBusqueda.addItem("cantidad_municion");
+
+        v.cbVehiculoBusqueda.addItem("nombre");
+        v.cbVehiculoBusqueda.addItem("kilometros");
+        v.cbVehiculoBusqueda.addItem("años_uso");
     }
 
     // Metodo que carga los datos de un archivo XML en los ARRAYLIST y posteriormente los lista
@@ -545,17 +674,16 @@ public class Projectcontroller implements ListSelectionListener, ChangeListener,
     }
 
     // Metodo que actualiza las ComboBox que tienen datos variables
-
     public void actualizarComboBox(int op) {
 
-        if (Values.warningBaseDatos == false) {
-            List<String> cb = pm.consultaActualizarComboBox(op);
-
+        if (!Values.warningBaseDatos) {
+            List<String> cbCuartel = pm.actualizarCombo("Cuartel");
+            List<String> cbUnidad = pm.actualizarCombo("UnidadView");
             if (op == 0) {
 
                 v.cbCuartel.removeAllItems();
-                for (int i = 0; i < cb.size(); i++) {
-                    v.cbCuartel.addItem(cb.get(i));
+                for (int i = 0; i < cbCuartel.size(); i++) {
+                    v.cbCuartel.addItem(cbCuartel.get(i));
                 }
 
             } else {
@@ -563,14 +691,13 @@ public class Projectcontroller implements ListSelectionListener, ChangeListener,
                 if (op == 1) {
 
                     v.cbUnidad.removeAllItems();
-                    for (int i = 0; i < cb.size(); i++) {
-                        v.cbUnidad.addItem(cb.get(i));
+                    for (int i = 0; i < cbUnidad.size(); i++) {
+                        v.cbUnidad.addItem(cbUnidad.get(i));
                     }
                 }
             }
         }
     }
-
     // Metodo que controla el guardado o modificado del objeto, dependiendo de la pestaña seleccionada
 
     public void guardarController() {
@@ -592,11 +719,23 @@ public class Projectcontroller implements ListSelectionListener, ChangeListener,
                 if(Values.modifyConstant == false) {
 
                     if(v.cbActividad.getSelectedItem() == "true") {
-                        pm.guardarCuartelSentencia(v.txtNombrecuartel.getText(), v.txtLocalidad.getText(),
-                                Double.valueOf(v.txtLatitud.getText()), Double.valueOf(v.txtLongitud.getText()), true);
+
+                        Cuartel cuartel = new Cuartel();
+                        cuartel.setnCuartel(v.txtNombrecuartel.getText());
+                        cuartel.setLongitud(Double.valueOf(v.txtLongitud.getText()));
+                        cuartel.setLatitud(Double.valueOf(v.txtLatitud.getText()));
+                        cuartel.setLocalidad(v.txtLocalidad.getText());
+                        cuartel.setActividad(true);
+                        pm.guardarClase(cuartel);
                     } else {
-                        pm.guardarCuartelSentencia(v.txtNombrecuartel.getText(), v.txtLocalidad.getText(),
-                                Double.valueOf(v.txtLatitud.getText()), Double.valueOf(v.txtLongitud.getText()), false);
+
+                        Cuartel cuartel = new Cuartel();
+                        cuartel.setnCuartel(v.txtNombrecuartel.getText());
+                        cuartel.setLongitud(Double.valueOf(v.txtLongitud.getText()));
+                        cuartel.setLatitud(Double.valueOf(v.txtLatitud.getText()));
+                        cuartel.setLocalidad(v.txtLocalidad.getText());
+                        cuartel.setActividad(false);
+                        pm.guardarClase(cuartel);
                     }
 
                     actualizarComboBox(0);
@@ -606,13 +745,24 @@ public class Projectcontroller implements ListSelectionListener, ChangeListener,
                     // Modificado de la clase Cuartel
 
                     if(v.cbActividad.getSelectedItem() == "true") {
-                        pm.modificarCuartelSentencia(Values.idCuartel, v.txtNombrecuartel.getText(),
-                                Double.valueOf(v.txtLatitud.getText()), Double.valueOf(v.txtLongitud.getText()),
-                                true, v.txtLocalidad.getText());
+                        Cuartel cuartel = new Cuartel();
+                        cuartel.setnCuartel(v.txtNombrecuartel.getText());
+                        cuartel.setLongitud(Double.valueOf(v.txtLongitud.getText()));
+                        cuartel.setLatitud(Double.valueOf(v.txtLatitud.getText()));
+                        cuartel.setLocalidad(v.txtLocalidad.getText());
+                        cuartel.setActividad(true);
+                        cuartel.setId(Values.idCuartel);
+                        pm.modificarClase(cuartel);
+
                     } else {
-                        pm.modificarCuartelSentencia(Values.idCuartel, v.txtNombrecuartel.getText(),
-                                Double.valueOf(v.txtLatitud.getText()), Double.valueOf(v.txtLongitud.getText()),
-                                false, v.txtLocalidad.getText());
+                        Cuartel cuartel = new Cuartel();
+                        cuartel.setnCuartel(v.txtNombrecuartel.getText());
+                        cuartel.setLongitud(Double.valueOf(v.txtLongitud.getText()));
+                        cuartel.setLatitud(Double.valueOf(v.txtLatitud.getText()));
+                        cuartel.setLocalidad(v.txtLocalidad.getText());
+                        cuartel.setActividad(false);
+                        cuartel.setId(Values.idCuartel);
+                        pm.modificarClase(cuartel);
                     }
 
                     actualizarComboBox(0);
@@ -623,7 +773,7 @@ public class Projectcontroller implements ListSelectionListener, ChangeListener,
                 listarCuartel();
                 break;
 
-            // Guardado de la clase Unidad
+            // Guardado de la clase UnidadView
 
             case 1:
 
@@ -636,19 +786,25 @@ public class Projectcontroller implements ListSelectionListener, ChangeListener,
 
                 if(Values.modifyConstant == false) {
 
-                    pm.guardarUnidadSentencia(v.txtNombreunidad.getText(), (String) v.cbTipo.getSelectedItem(),
-                            Integer.valueOf(v.txtNoTropas.getText()), new Date(v.dcFechaUnidad.getDate().getTime()),
-                            (String) v.cbCuartel.getSelectedItem());
-
+                    Unidad unidad = new Unidad();
+                    unidad.setnUnidad(v.txtNombreunidad.getText());
+                    unidad.setNoTropas(Integer.valueOf(v.txtNoTropas.getText()));
+                    unidad.setTipo((String) v.cbTipo.getSelectedItem());
+                    unidad.setFechaCreacion(new Date(v.dcFechaUnidad.getDate().getTime()));
+                    unidad.setCuartel((Cuartel) pm.getObjeto("cuartel", (String) v.cbCuartel.getSelectedItem()));
+                    pm.guardarClase(unidad);
                 } else {
 
-                    // Modificado de la clase Unidad
+                    // Modificado de la clase UnidadView
 
-                    pm.modificarUnidadSentencia(Values.idUnidad, v.txtNombreunidad.getText(),
-                            (String) v.cbTipo.getSelectedItem(), Integer.valueOf(v.txtNoTropas.getText()),
-                            new Date(v.dcFechaUnidad.getDate().getTime()),
-                            (String) v.cbCuartel.getSelectedItem());
-
+                    Unidad unidad = new Unidad();
+                    unidad.setnUnidad(v.txtNombreunidad.getText());
+                    unidad.setNoTropas(Integer.valueOf(v.txtNoTropas.getText()));
+                    unidad.setTipo((String) v.cbTipo.getSelectedItem());
+                    unidad.setFechaCreacion(new Date(v.dcFechaUnidad.getDate().getTime()));
+                    unidad.setCuartel((Cuartel) pm.getObjeto("cuartel", (String) v.cbCuartel.getSelectedItem()));
+                    unidad.setId(Values.idUnidad);
+                    pm.modificarClase(unidad);
                     actualizarComboBox(1);
 
                     Values.modifyConstant = false;
@@ -668,23 +824,106 @@ public class Projectcontroller implements ListSelectionListener, ChangeListener,
 
                 if(Values.modifyConstant == false) {
 
-                    pm.guardarSoldadoSentencia(v.txtNombre.getText(), v.txtApellidos.getText(),
-                            new Date(v.dcFechanacimiento.getDate().getTime()), (String) v.cbRango.getSelectedItem(),
-                            v.txtLugarNacimiento.getText(), (String) v.cbUnidad.getSelectedItem());
+                    Soldado soldado = new Soldado();
+                    soldado.setNombre(v.txtNombre.getText());
+                    soldado.setApellidos(v.txtApellidos.getText());
+                    soldado.setRango((String) v.cbRango.getSelectedItem());
+                    soldado.setFechaNacimiento(new Date(v.dcFechanacimiento.getDate().getTime()));
+                    soldado.setLugarNacimiento(v.txtLugarNacimiento.getText());
+                    Unidad unidad = (Unidad) pm.getObjeto("unidad", v.cbUnidad.getSelectedItem().toString());
+                    soldado.setUnidad(unidad);
+                    pm.guardarClase(soldado);
 
                 } else {
 
                     // Modificado de la clase Soldado
 
-                    pm.modificarSoldadoSentencia(Values.idSoldado, v.txtNombre.getText(),
-                            v.txtApellidos.getText(), (String) v.cbRango.getSelectedItem(),
-                            new Date(v.dcFechanacimiento.getDate().getTime()), v.txtLugarNacimiento.getText(),
-                            (String) v.cbUnidad.getSelectedItem());
+                    Soldado soldado = new Soldado();
+                    soldado.setId(Values.idSoldado);
+                    soldado.setNombre(v.txtNombre.getText());
+                    soldado.setApellidos(v.txtApellidos.getText());
+                    soldado.setRango((String) v.cbRango.getSelectedItem());
+                    soldado.setFechaNacimiento(new Date(v.dcFechanacimiento.getDate().getTime()));
+                    soldado.setLugarNacimiento(v.txtLugarNacimiento.getText());
+                    soldado.setUnidad((Unidad) pm.getObjeto("unidad", (String) v.cbUnidad.getSelectedItem()));
+                    pm.modificarClase(soldado);
 
                     Values.modifyConstant = false;
                 }
                 vaciarSoldado();
                 listarSoldado();
+                break;
+            case 3:
+
+                if(v.txtArmaNombre.getText().equals("")) {
+                    Utilities.mensajeError("Introduzca al menos nombre del arma");
+                    return;
+                }
+
+                if(Values.modifyConstant == false) {
+
+                    Arma arma = new Arma();
+                    arma.setNombre(v.txtArmaNombre.getText());
+                    arma.setCalibre(v.txtArmaCalibre.getText());
+                    arma.setCantidad_municion(Integer.parseInt(v.txtArmaCantidadMunicion.getText()));
+                    arma.setCantidad_total(Integer.parseInt(v.txtArmaCantidadTotal.getText()));
+                    arma.setDuracion_años(Integer.parseInt(v.txtArmaDuracionAnos.getText()));
+                    pm.guardarClase(arma);
+
+                } else {
+
+                    // Modificado de la clase Soldado
+
+                    Arma arma = new Arma();
+                    arma.setNombre(v.txtArmaNombre.getText());
+                    arma.setCalibre(v.txtArmaCalibre.getText());
+                    arma.setCantidad_municion(Integer.parseInt(v.txtArmaCantidadMunicion.getText()));
+                    arma.setCantidad_total(Integer.parseInt(v.txtArmaCantidadTotal.getText()));
+                    arma.setDuracion_años(Integer.parseInt(v.txtArmaDuracionAnos.getText()));
+                    arma.setId(Values.idArma);
+                    pm.modificarClase(arma);
+
+                    Values.modifyConstant = false;
+                }
+                vaciarArma(); //TODO
+                listarArma();
+                break;
+            case 4:
+
+                if(v.txtVehiculoNombre.getText().equals("")) {
+                    Utilities.mensajeError("Introduzca al menos nombre");
+                    return;
+                }
+
+                if (v.txtVehiculoKilometros.getText().equalsIgnoreCase("")) v.txtVehiculoKilometros.setText(String.valueOf(0));
+
+                if(Values.modifyConstant == false) {
+
+                    Vehiculo vehiculo = new Vehiculo();
+                    vehiculo.setNombre(v.txtVehiculoNombre.getText());
+                    vehiculo.setDuracion_años(Integer.valueOf(v.txtVehiculoDuracionAnos.getText()));
+                    vehiculo.setCantidad_total(Integer.valueOf(v.txtVehiculoCantidadTotal.getText()));
+                    vehiculo.setKilometros(Integer.valueOf(v.txtVehiculoKilometros.getText()));
+                    vehiculo.setAños_uso(Integer.valueOf(v.txtVehiculoAnosUso.getText()));
+                    pm.guardarClase(vehiculo);
+
+                } else {
+
+                    // Modificado de la clase Soldado
+
+                    Vehiculo vehiculo = new Vehiculo();
+                    vehiculo.setNombre(v.txtVehiculoNombre.getText());
+                    vehiculo.setDuracion_años(Integer.valueOf(v.txtVehiculoDuracionAnos.getText()));
+                    vehiculo.setCantidad_total(Integer.valueOf(v.txtVehiculoCantidadTotal.getText()));
+                    vehiculo.setKilometros(Integer.valueOf(v.txtVehiculoKilometros.getText()));
+                    vehiculo.setAños_uso(Integer.valueOf(v.txtVehiculoAnosUso.getText()));
+                    vehiculo.setId(Values.idVehiculo);
+                    pm.modificarClase(vehiculo);
+
+                    Values.modifyConstant = false;
+                }
+                vaciarVehiculo();
+                listarVehiculo();
                 break;
         }
     }
@@ -698,7 +937,7 @@ public class Projectcontroller implements ListSelectionListener, ChangeListener,
             // Borrado Cuarteles
 
             case 0:
-                pm.borrarCuartelSentencia(Values.idCuartel);
+                pm.eliminarClase(pm.cargar("cuartel", Values.idCuartel));
                 vaciarCuartel();
                 listarCuartel();
                 break;
@@ -706,7 +945,7 @@ public class Projectcontroller implements ListSelectionListener, ChangeListener,
             // Borrado Unidades
 
             case 1:
-                pm.borrarUnidadSentencia(Values.idUnidad);
+                pm.eliminarClase(pm.cargar("unidad", Values.idUnidad));
                 vaciarUnidad();
                 listarUnidad();
                 break;
@@ -714,9 +953,21 @@ public class Projectcontroller implements ListSelectionListener, ChangeListener,
             // Borrado Soldados
 
             case 2:
-                pm.borrarSoldadoSentencia(Values.idSoldado);
+                pm.eliminarClase(pm.cargar("soldado", Values.idSoldado));
                 vaciarSoldado();
                 listarSoldado();
+                break;
+
+            case 3:
+                pm.eliminarClase(pm.cargar("arma", Values.idArma));
+                listarArma();
+                vaciarArma();
+                break;
+
+            case 4:
+                pm.eliminarClase(pm.cargar("vehiculo", Values.idVehiculo));
+                listarVehiculo();
+                vaciarVehiculo();
                 break;
         }
     }
@@ -743,7 +994,7 @@ public class Projectcontroller implements ListSelectionListener, ChangeListener,
 
         v.txtNombreunidad.setText(unidad.getnUnidad());
         v.cbTipo.setSelectedItem(unidad.getTipo());
-        v.cbCuartel.setSelectedItem(unidad.getCuartel());
+        v.cbCuartel.setSelectedItem(unidad.getCuartel().getnCuartel());
         v.txtNoTropas.setText(String.valueOf(unidad.getNoTropas()));
         v.dcFechaUnidad.setDate(unidad.getFechaCreacion());
     }
@@ -755,7 +1006,25 @@ public class Projectcontroller implements ListSelectionListener, ChangeListener,
         v.dcFechanacimiento.setDate(soldado.getFechaNacimiento());
         v.cbRango.setSelectedItem(soldado.getRango());
         v.txtLugarNacimiento.setText(soldado.getLugarNacimiento());
-        v.cbUnidad.setSelectedItem(soldado.getUnidad());
+        v.cbUnidad.setSelectedItem(soldado.getUnidad().getnUnidad());
+    }
+
+    public void cargarController(Arma arma) {
+
+        v.txtArmaNombre.setText(arma.getNombre());
+        v.txtArmaCalibre.setText(arma.getCalibre());
+        v.txtArmaCantidadTotal.setText(String.valueOf(arma.getCantidad_total()));
+        v.txtArmaDuracionAnos.setText(String.valueOf(arma.getDuracion_años()));
+        v.txtArmaCantidadMunicion.setText(String.valueOf(arma.getCantidad_municion()));
+    }
+
+    public void cargarController(Vehiculo vehiculo) {
+
+        v.txtVehiculoNombre.setText(vehiculo.getNombre());
+        v.txtVehiculoCantidadTotal.setText(String.valueOf(vehiculo.getCantidad_total()));
+        v.txtVehiculoAnosUso.setText(String.valueOf(vehiculo.getAños_uso()));
+        v.txtVehiculoDuracionAnos.setText(String.valueOf(vehiculo.getDuracion_años()));
+        v.txtVehiculoKilometros.setText(String.valueOf(vehiculo.getKilometros()));
     }
 
     // Metodos para vaciar/limpiar los campos
@@ -788,58 +1057,104 @@ public class Projectcontroller implements ListSelectionListener, ChangeListener,
         v.cbUnidad.setSelectedItem(null);
     }
 
+    public void vaciarArma() {
+
+        v.txtArmaNombre.setText("");
+        v.txtArmaCalibre.setText("");
+        v.txtArmaCantidadTotal.setText("");
+        v.txtArmaDuracionAnos.setText("");
+        v.txtArmaCantidadMunicion.setText("");
+    }
+
+    public void vaciarVehiculo() {
+
+        v.txtVehiculoNombre.setText("");
+        v.txtVehiculoCantidadTotal.setText("");
+        v.txtVehiculoAnosUso.setText(String.valueOf(""));
+        v.txtVehiculoDuracionAnos.setText(String.valueOf(""));
+        v.txtVehiculoKilometros.setText(String.valueOf(""));
+    }
+
     // Metodos de busqueda
 
-        // Metodo que busca por nombre de cuartel y localidad, y posteriormente devuelve los resultados
-        // en caso de vaciarse el campo de busqueda se vuelven a listar todos los datos
+    // Metodo que busca por nombre de cuartel y localidad, y posteriormente devuelve los resultados
+    // en caso de vaciarse el campo de busqueda se vuelven a listar todos los datos
 
-        public void controlBuscarCuartel(String busqueda) {
+    public void controlBuscarCuartel(String busqueda) {
 
-            List<Object[]> list = pm.buscarCuartel(busqueda, (String) v.cbTablaCuartel.getSelectedItem());
+        List<Object[]> list = pm.buscarCuartel(busqueda, (String) v.cbTablaCuartel.getSelectedItem());
 
-            if (list != null) {
+        if (list != null) {
 
-                defmodelcuartel.setNumRows(0);
-                for (int i = 0; i < list.size(); i++) {
+            defmodelcuartel.setNumRows(0);
+            for (int i = 0; i < list.size(); i++) {
 
-                    defmodelcuartel.addRow(list.get(i));
-                }
+                defmodelcuartel.addRow(list.get(i));
             }
         }
+    }
 
-        // Metodo que busca por nombre de unidad y tipo, y posteriormente devuelve los resultados
-        // en caso de vaciarse el campo de busqueda se vuelven a listar todos los datos
+    // Metodo que busca por nombre de unidad y tipo, y posteriormente devuelve los resultados
+    // en caso de vaciarse el campo de busqueda se vuelven a listar todos los datos
 
-        public void controlBuscarUnidad(String busqueda) {
+    public void controlBuscarUnidad(String busqueda) {
 
-            List<Object[]> list = pm.buscarUnidad(busqueda, (String) v.cbTablaUnidad.getSelectedItem());
+        List<Object[]> list = pm.buscarUnidad(busqueda, (String) v.cbTablaUnidad.getSelectedItem());
 
-            if (list != null) {
+        if (list != null) {
 
-                defmodelunidad.setNumRows(0);
-                for (int i = 0; i < list.size(); i++) {
+            defmodelunidad.setNumRows(0);
+            for (int i = 0; i < list.size(); i++) {
 
-                    defmodelunidad.addRow(list.get(i));
-                }
+                defmodelunidad.addRow(list.get(i));
             }
         }
+    }
 
-        // Metodo que busca por nombre, apellidos, rango, unidad y lugar de nacimiento, y posteriormente devuelve los resultados
-        // en caso de vaciarse el campo de busqueda se vuelven a listar todos los datos
+    // Metodo que busca por nombre, apellidos, rango, unidad y lugar de nacimiento, y posteriormente devuelve los resultados
+    // en caso de vaciarse el campo de busqueda se vuelven a listar todos los datos
 
-        public void controlBuscarSoldado(String busqueda) {
+    public void controlBuscarSoldado(String busqueda) {
 
-            List<Object[]> list = pm.buscarSoldado(busqueda, (String) v.cbTablaSoldado.getSelectedItem());
+        List<Object[]> list = pm.buscarSoldado(busqueda, (String) v.cbTablaSoldado.getSelectedItem());
 
-            if (list != null) {
+        if (list != null) {
 
-                defmodelsoldado.setNumRows(0);
-                for (int i = 0; i < list.size(); i++) {
+            defmodelsoldado.setNumRows(0);
+            for (int i = 0; i < list.size(); i++) {
 
-                    defmodelsoldado.addRow(list.get(i));
-                }
+                defmodelsoldado.addRow(list.get(i));
             }
         }
+    }
+
+    public void controlBuscarArma(String busqueda) {
+
+        List<Object[]> list = pm.buscarArma(busqueda, (String) v.cbArmaBusqueda.getSelectedItem());
+
+        if (list != null) {
+
+            defmodelarma.setNumRows(0);
+            for (int i = 0; i < list.size(); i++) {
+
+                defmodelarma.addRow(list.get(i));
+            }
+        }
+    }
+
+    public void controlBuscarVehiculo(String busqueda) {
+
+        List<Object[]> list = pm.buscarVehiculo(busqueda, (String) v.cbVehiculoBusqueda.getSelectedItem());
+
+        if (list != null) {
+
+            defmodelvehiculo.setNumRows(0);
+            for (int i = 0; i < list.size(); i++) {
+
+                defmodelvehiculo.addRow(list.get(i));
+            }
+        }
+    }
 
     // Metodo que recoge los cambios de las pestañas, y ejecuta algunos de los metodos anteriores
 
@@ -865,6 +1180,16 @@ public class Projectcontroller implements ListSelectionListener, ChangeListener,
                 vaciarSoldado();
                 listarSoldado();
                 actualizarComboBox(1);
+                break;
+
+            case 3:
+                vaciarArma();
+                listarArma();
+                break;
+
+            case 4:
+                vaciarVehiculo();
+                listarVehiculo();
                 break;
         }
     }
@@ -904,10 +1229,6 @@ public class Projectcontroller implements ListSelectionListener, ChangeListener,
 
             switch (actionCommand) {
 
-                case "Preferencias":
-                    pref.setVisible(true);
-                    pref.cargarPreferencias();
-                    break;
                 case "Exportar":
                     exportar();
                     break;
@@ -947,6 +1268,14 @@ public class Projectcontroller implements ListSelectionListener, ChangeListener,
 
             case 2:
                 controlBuscarSoldado(v.txtBusquedasoldado.getText());
+                break;
+
+            case 3:
+                controlBuscarArma(v.txtArmaBuscar.getText());
+                break;
+
+            case 4:
+                controlBuscarVehiculo(v.txtVehiculoBusqueda.getText());
                 break;
         }
     }
